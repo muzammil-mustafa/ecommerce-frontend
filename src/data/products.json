@@ -1,0 +1,641 @@
+[
+  {
+    "id": 1,
+    "name": "AuraStudio Pro Wireless Headphones",
+    "category": "Audio",
+    "price": 249.99,
+    "originalPrice": 299.99,
+    "rating": 4.9,
+    "reviewsCount": 184,
+    "badge": "Bestseller",
+    "inStock": true,
+    "stockCount": 14,
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Immerse yourself in rich, spatial acoustic clarity with custom 40mm neodymium drivers, active hybrid noise cancellation, and up to 45 hours of continuous wireless playback.",
+    "features": [
+      "Active Hybrid Noise Cancellation with Transparency Mode",
+      "Up to 45 hours battery life with ultra-fast USB-C charge",
+      "Plush memory foam ear cushions with breathable leatherette",
+      "Multipoint Bluetooth 5.3 connection for seamless device switching"
+    ],
+    "colors": ["#1e293b", "#e2e8f0", "#b45309"],
+    "specs": {
+      "Driver Unit": "40mm Dynamic",
+      "Frequency Response": "20Hz - 40,000Hz",
+      "Battery Life": "45 Hours (ANC On)",
+      "Weight": "254g",
+      "Warranty": "2 Years International"
+    },
+    "reviews": [
+      {
+        "id": "r101",
+        "author": "Marcus Vance",
+        "rating": 5,
+        "date": "2 days ago",
+        "comment": "The active noise cancellation blocks my loud office completely. Exceptional build quality!"
+      },
+      {
+        "id": "r102",
+        "author": "Elena Rostova",
+        "rating": 5,
+        "date": "1 week ago",
+        "comment": "Crisp highs and warm, deep bass without distortion. Battery lasts all week on a single charge."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Chronos Apex Smartwatch Series 6",
+    "category": "Electronics",
+    "price": 199.50,
+    "originalPrice": 249.00,
+    "rating": 4.8,
+    "reviewsCount": 97,
+    "badge": "New Arrival",
+    "inStock": true,
+    "stockCount": 8,
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Engineered for active lifestyles. Features an aerospace-grade titanium bezel, vibrant AMOLED always-on display, comprehensive ECG biometric sensors, and 50m water resistance.",
+    "features": [
+      "1.43-inch Ultra Retina AMOLED display with 1000 nits peak brightness",
+      "Continuous SpO2, Heart Rate, and Sleep architecture tracking",
+      "Built-in dual-band GPS with turn-by-turn route navigation",
+      "5 ATM waterproof rating suitable for open water swimming"
+    ],
+    "colors": ["#0f172a", "#64748b", "#cbd5e1"],
+    "specs": {
+      "Display": "1.43-inch AMOLED (466x466)",
+      "Case Material": "Aerospace Grade Titanium",
+      "Water Resistance": "50m (5 ATM)",
+      "Battery Life": "Up to 7 Days",
+      "Connectivity": "Bluetooth 5.2, Wi-Fi, NFC"
+    },
+    "reviews": [
+      {
+        "id": "r201",
+        "author": "David Chen",
+        "rating": 5,
+        "date": "3 weeks ago",
+        "comment": "Battery genuinely lasts 6-7 days. The fitness metrics are insanely precise."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Stride Velocity Carbon Running Shoes",
+    "category": "Footwear",
+    "price": 139.99,
+    "originalPrice": 175.00,
+    "rating": 4.7,
+    "reviewsCount": 215,
+    "badge": "Sale -20%",
+    "inStock": true,
+    "stockCount": 22,
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Propel your stride with an internal curved carbon-fiber plate encased in ultra-responsive supercritical EVA foam. Built for marathon speed and daily responsive comfort.",
+    "features": [
+      "Full-length curved carbon propulsion plate for maximum energy return",
+      "Featherweight engineered jacquard mesh upper for maximum ventilation",
+      "High-abrasion Continental rubber outsole lugs for all-weather grip",
+      "Ortholite hybrid ergonomic shock-absorbing footbed"
+    ],
+    "colors": ["#dc2626", "#0284c7", "#18181b"],
+    "specs": {
+      "Stack Height": "38mm heel / 30mm forefoot (8mm drop)",
+      "Weight": "218g (US Men 9)",
+      "Upper Material": "Recycled engineered knit",
+      "Arch Support": "Neutral / Performance"
+    },
+    "reviews": [
+      {
+        "id": "r301",
+        "author": "Sarah Jenkins",
+        "rating": 5,
+        "date": "5 days ago",
+        "comment": "Shaved 4 minutes off my 10k personal best on the first run. Pure bounce!"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Nordic Commuter Waxed Canvas Backpack",
+    "category": "Fashion",
+    "price": 89.00,
+    "originalPrice": 120.00,
+    "rating": 4.8,
+    "reviewsCount": 64,
+    "badge": "Limited",
+    "inStock": true,
+    "stockCount": 6,
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Handcrafted heavy-duty 16oz weather-treated waxed canvas with vegetable-tanned full grain leather trims, padded 16-inch laptop pocket, and anti-theft hidden compartments.",
+    "features": [
+      "16oz water-repellent vintage waxed cotton canvas",
+      "Fleece-lined suspended 16-inch laptop and tablet compartment",
+      "Heavy duty YKK weatherproof zippers and solid brass hardware",
+      "Luggage pass-through strap for effortless airport travel"
+    ],
+    "colors": ["#475569", "#78350f", "#1c1917"],
+    "specs": {
+      "Capacity": "22 Liters",
+      "Dimensions": "46cm x 31cm x 15cm",
+      "Hardware": "Solid Antiqued Brass",
+      "Laptop Fit": "Up to 16-inch MacBook Pro"
+    },
+    "reviews": [
+      {
+        "id": "r401",
+        "author": "Alexandre Dupont",
+        "rating": 5,
+        "date": "1 month ago",
+        "comment": "Rain beads right off. Beautiful vintage leather patina develops quickly."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "KeyCraft RGB Mechanical Keyboard",
+    "category": "Electronics",
+    "price": 119.00,
+    "originalPrice": 149.00,
+    "rating": 4.9,
+    "reviewsCount": 142,
+    "badge": "Bestseller",
+    "inStock": true,
+    "stockCount": 18,
+    "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Custom aluminum body gasket-mounted 75% mechanical keyboard with hot-swappable pre-lubed switches, sound-dampening silicone poron foam, and customizable south-facing RGB.",
+    "features": [
+      "Gasket mounted architecture for an ultra-creamy, deep sound profile",
+      "Hot-swappable 5-pin PCB supports Cherry, Gateron, and Kailh switches",
+      "Double-shot PBT cherry profile keycaps with dye-sublimated legends",
+      "Tri-mode connectivity: 2.4GHz low latency, Bluetooth 5.1, USB-C"
+    ],
+    "colors": ["#18181b", "#ffffff", "#4338ca"],
+    "specs": {
+      "Layout": "75% (82 Keys) + Multi-function Volume Knob",
+      "Battery": "4000mAh Rechargeable Lithium",
+      "Weight": "980g Solid CNC Aluminum",
+      "Compatibility": "Windows, macOS, Linux, iOS, Android"
+    },
+    "reviews": [
+      {
+        "id": "r501",
+        "author": "Kevin Lin",
+        "rating": 5,
+        "date": "2 weeks ago",
+        "comment": "Typing on this is sheer bliss. The acoustic dampening sounds expensive!"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Artisan Ceramic Pour-Over Tumbler",
+    "category": "Home & Living",
+    "price": 34.00,
+    "originalPrice": 42.00,
+    "rating": 4.6,
+    "reviewsCount": 53,
+    "badge": null,
+    "inStock": true,
+    "stockCount": 27,
+    "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Hand-thrown stoneware clay mug with reactive glaze finish. Features double-wall ceramic thermal retention to keep your specialty coffee or loose-leaf tea at peak warmth.",
+    "features": [
+      "Individually hand-thrown artisanal stoneware by master potters",
+      "Double-wall insulated ceramic keeps beverage hot without burning fingers",
+      "Lead-free, food-safe matte mineral glaze that resists coffee staining",
+      "Dishwasher and microwave safe construction"
+    ],
+    "colors": ["#d97706", "#78716c", "#1e293b"],
+    "specs": {
+      "Volume": "380ml / 12.8 fl oz",
+      "Material": "100% Natural Stoneware Clay",
+      "Origin": "Kyoto, Japan",
+      "Dishwasher Safe": "Yes"
+    },
+    "reviews": [
+      {
+        "id": "r601",
+        "author": "Chloe Becker",
+        "rating": 5,
+        "date": "4 days ago",
+        "comment": "The tactile texture feels so grounding every morning. Looks stunning on my desk."
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Aviator Solstice Polarized Sunglasses",
+    "category": "Fashion",
+    "price": 75.00,
+    "originalPrice": 105.00,
+    "rating": 4.7,
+    "reviewsCount": 88,
+    "badge": "Sale -25%",
+    "inStock": true,
+    "stockCount": 15,
+    "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Timeless frame silhouette constructed from corrosion-resistant surgical alloy, paired with 9-layer TAC polarized lenses providing 100% UV400 radiation shielding.",
+    "features": [
+      "9-layer TAC polarized lenses eliminate glare and reflection",
+      "UV400 maximum protection against harmful UVA and UVB rays",
+      "Adjustable hypoallergenic medical-grade silicone nose pads",
+      "Includes hard shell magnetic protective case and micro-fiber cloth"
+    ],
+    "colors": ["#eab308", "#1e293b", "#94a3b8"],
+    "specs": {
+      "Lens Width": "58mm",
+      "Bridge Width": "14mm",
+      "Temple Length": "140mm",
+      "Lens Category": "Cat. 3 Polarized"
+    },
+    "reviews": [
+      {
+        "id": "r701",
+        "author": "Liam Gallagher",
+        "rating": 5,
+        "date": "1 week ago",
+        "comment": "Super lightweight and crystal clear driving vision. Incredible quality for this price."
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "ErgoMaster Precision Wireless Mouse",
+    "category": "Electronics",
+    "price": 69.90,
+    "originalPrice": 85.00,
+    "rating": 4.8,
+    "reviewsCount": 110,
+    "badge": null,
+    "inStock": true,
+    "stockCount": 20,
+    "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Sculpted ergonomic contour supports palm and wrist alignment, reducing muscular strain by 35%. Equipped with a hyper-fast electromagnetic MagSpeed scroll wheel.",
+    "features": [
+      "4000 DPI Darkfield high-precision sensor tracks on any surface, even glass",
+      "Smart thumb wheel for rapid horizontal navigation in spreadsheets and timelines",
+      "Connect up to 3 devices simultaneously and cross-control effortlessly",
+      "Rechargeable battery yields up to 70 days on one complete charge"
+    ],
+    "colors": ["#334155", "#cbd5e1"],
+    "specs": {
+      "DPI": "200 - 4,000 DPI (50 DPI increments)",
+      "Buttons": "7 programmable buttons",
+      "Weight": "141g",
+      "Battery": "500mAh Li-Po"
+    },
+    "reviews": [
+      {
+        "id": "r801",
+        "author": "Maya Patel",
+        "rating": 5,
+        "date": "2 weeks ago",
+        "comment": "Cured my wrist ache within two days of using it for UI design work."
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Heritage Selvedge Denim Trucker Jacket",
+    "category": "Fashion",
+    "price": 115.00,
+    "originalPrice": 140.00,
+    "rating": 4.6,
+    "reviewsCount": 47,
+    "badge": "New Arrival",
+    "inStock": true,
+    "stockCount": 11,
+    "image": "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Constructed from 13.5oz shuttle-loom raw indigo selvedge denim. Designed with custom engraved brass shank buttons, clean chain-stitch seams, and deep internal utility pockets.",
+    "features": [
+      "100% organic cotton 13.5oz Japanese shuttle-loom selvedge denim",
+      "Sanforized wash treatment to minimize shrinkage over years of wear",
+      "Dual chest flap pockets with buttoned waist adjustment tabs",
+      "Double-needle reinforced construction throughout"
+    ],
+    "colors": ["#1e3a8a", "#0f172a"],
+    "specs": {
+      "Fit": "Regular Classic Trucker Cut",
+      "Fabric Weight": "13.5 oz",
+      "Care": "Cold soak, hang dry to preserve indigo indigo fade",
+      "Origin": "Kojima, Okayama"
+    },
+    "reviews": [
+      {
+        "id": "r901",
+        "author": "Tariq Owens",
+        "rating": 5,
+        "date": "3 weeks ago",
+        "comment": "Heavy duty denim that breaks in wonderfully. True to size fit."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Lumina Minimalist Architectural Desk Lamp",
+    "category": "Home & Living",
+    "price": 85.00,
+    "originalPrice": 110.00,
+    "rating": 4.8,
+    "reviewsCount": 79,
+    "badge": null,
+    "inStock": true,
+    "stockCount": 17,
+    "image": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Ultra-sleek counterbalanced arm desk lamp with touch-sensitive dimming, CRI 95+ eye-care LED diodes, and integrated Qi fast wireless charging base.",
+    "features": [
+      "High CRI 95+ LED eliminates glare and eye fatigue during late nights",
+      "Smooth stepless capacitive brightness sliding touch bar",
+      "3 color temperature settings (2700K warm, 4000K natural, 6000K crisp cool)",
+      "Integrated 15W Qi wireless charging pad built directly into weighted base"
+    ],
+    "colors": ["#000000", "#e2e8f0"],
+    "specs": {
+      "Power": "12W LED Equivalent to 75W Incandescent",
+      "Color Temperature": "2700K - 6500K",
+      "Base Charging": "15W Fast Wireless Qi Base",
+      "Lifespan": "50,000 Operating Hours"
+    },
+    "reviews": [
+      {
+        "id": "r1001",
+        "author": "Jessica Alba-White",
+        "rating": 5,
+        "date": "1 week ago",
+        "comment": "The wireless charging base is so convenient. Sleek modern silhouette on my desk."
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "EchoPulse 360 Portable Waterproof Speaker",
+    "category": "Audio",
+    "price": 99.00,
+    "originalPrice": 129.00,
+    "rating": 4.7,
+    "reviewsCount": 160,
+    "badge": "Bestseller",
+    "inStock": true,
+    "stockCount": 25,
+    "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Room-filling 360-degree cylindrical acoustics with dual passive radiators for visceral punchy bass. IP67 dustproof and submergible waterproof design for outdoor adventures.",
+    "features": [
+      "Omnidirectional 360° stereo sound with bass boost button",
+      "IP67 waterproof and dustproof - floats safely if dropped in water",
+      "20 hours continuous party playtime on a single 3-hour charge",
+      "PartyLink mode: wire-free sync with up to 100 compatible speakers"
+    ],
+    "colors": ["#0f172a", "#059669", "#dc2626"],
+    "specs": {
+      "Output": "30W RMS Output Power",
+      "Battery": "5200mAh Lithium-ion",
+      "Waterproof": "IP67 (Submersible up to 1 meter for 30 min)",
+      "Weight": "580g"
+    },
+    "reviews": [
+      {
+        "id": "r1101",
+        "author": "Jordan Reed",
+        "rating": 5,
+        "date": "6 days ago",
+        "comment": "Took it kayaking and camping. Got soaked in the lake and kept playing flawlessly."
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Kallan Bauhaus Minimalist Analog Watch",
+    "category": "Fashion",
+    "price": 149.00,
+    "originalPrice": 189.00,
+    "rating": 4.9,
+    "reviewsCount": 73,
+    "badge": null,
+    "inStock": true,
+    "stockCount": 9,
+    "image": "https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Bauhaus modernist design philosophy embodied in clean typography, sapphire crystal glass, Japanese Miyota quartz movement, and Italian vegetable-tanned calfskin leather strap.",
+    "features": [
+      "Ultra-scratch-resistant antireflective sapphire crystal dome",
+      "High precision Japanese Miyota quartz caliber mechanism",
+      "Interchangeable quick-release Italian calfskin leather band",
+      "5 ATM / 50 meters water resistance"
+    ],
+    "colors": ["#000000", "#78350f", "#f8fafc"],
+    "specs": {
+      "Case Diameter": "40mm",
+      "Case Thickness": "7.5mm Ultra-slim",
+      "Band Width": "20mm",
+      "Glass": "Scratch-resistant Sapphire Crystal"
+    },
+    "reviews": [
+      {
+        "id": "r1201",
+        "author": "Oliver Scott",
+        "rating": 5,
+        "date": "1 month ago",
+        "comment": "Timeless elegance. Gets compliments constantly in business meetings."
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Pure Linen Relaxed Resort Shirt",
+    "category": "Fashion",
+    "price": 54.00,
+    "originalPrice": 72.00,
+    "rating": 4.5,
+    "reviewsCount": 42,
+    "badge": "Sale -25%",
+    "inStock": true,
+    "stockCount": 16,
+    "image": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Woven from 100% French flax linen, pre-washed for irresistible softness and effortless summer drape. Breathable, hypoallergenic, and naturally thermoregulating.",
+    "features": [
+      "100% certified European flax linen with stone-washed garment finish",
+      "Camp collar aesthetic with mother-of-pearl buttons",
+      "Naturally moisture-wicking and cooling for hot climates",
+      "Pre-shrunk fabric ensures consistent shape wash after wash"
+    ],
+    "colors": ["#f8fafc", "#cbd5e1", "#0284c7"],
+    "specs": {
+      "Fit": "Relaxed Breezy Fit",
+      "Material": "100% Normandy Flax Linen",
+      "Care": "Machine wash cold, air dry",
+      "Collar": "Casual Camp / Cuban Collar"
+    },
+    "reviews": [
+      {
+        "id": "r1301",
+        "author": "Sebastian Grey",
+        "rating": 5,
+        "date": "2 weeks ago",
+        "comment": "Drapes gorgeously and stays comfortable in 35C humid weather."
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Botanical Amber & Smoked Cedar Candle",
+    "category": "Home & Living",
+    "price": 28.00,
+    "originalPrice": 35.00,
+    "rating": 4.8,
+    "reviewsCount": 91,
+    "badge": null,
+    "inStock": true,
+    "stockCount": 30,
+    "image": "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Hand-poured 100% natural soy wax candle infused with essential oils of dark amber, smoked Virginia cedarwood, and spicy Madagascar clove. Crackling wooden wick.",
+    "features": [
+      "Clean-burning non-toxic natural soy and coconut wax blend",
+      "FSC-certified organic wooden wick creates a gentle crackling fireplace ambience",
+      "Phthalate-free pure botanical fragrance formulation",
+      "Over 60 hours of even, soot-free burn time"
+    ],
+    "colors": ["#b45309", "#1e293b"],
+    "specs": {
+      "Net Weight": "8.5 oz / 240g",
+      "Burn Time": "60-65 Hours",
+      "Vessel": "Amber Apothecary Glass with Gold Lid",
+      "Wick": "Natural Cross Wooden Wick"
+    },
+    "reviews": [
+      {
+        "id": "r1401",
+        "author": "Hannah M.",
+        "rating": 5,
+        "date": "1 week ago",
+        "comment": "The scent fills the entire living room without feeling overpowering. Love the subtle crackle!"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "CloudFleece Heavyweight Streetwear Hoodie",
+    "category": "Fashion",
+    "price": 79.00,
+    "originalPrice": 95.00,
+    "rating": 4.9,
+    "reviewsCount": 134,
+    "badge": "Bestseller",
+    "inStock": true,
+    "stockCount": 19,
+    "image": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Ultra-heavy 450 GSM French terry cotton with brushed fleece lining. Drop-shoulder boxy silhouette, double-lined deep hood with no drawstrings, and reinforced ribbed cuffs.",
+    "features": [
+      "450 GSM heavyweight 100% ring-spun organic cotton fleece",
+      "Custom drop-shoulder oversized boxy streetwear silhouette",
+      "Double-layered structured hood that holds its shape cleanly",
+      "Preshrunk and garment enzyme washed for vintage luxury hand-feel"
+    ],
+    "colors": ["#18181b", "#71717a", "#451a03"],
+    "specs": {
+      "Fabric Weight": "450 GSM",
+      "Material": "100% Organic Ring-spun Cotton",
+      "Fit": "Modern Boxy Relaxed Fit",
+      "Origin": "Portugal"
+    },
+    "reviews": [
+      {
+        "id": "r1501",
+        "author": "Dominic Thorne",
+        "rating": 5,
+        "date": "3 days ago",
+        "comment": "Thickest, most comfortable hoodie I own. The hood structure is top tier."
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Summit Alpine Waterproof Trail Boots",
+    "category": "Footwear",
+    "price": 169.00,
+    "originalPrice": 210.00,
+    "rating": 4.8,
+    "reviewsCount": 82,
+    "badge": "New Arrival",
+    "inStock": true,
+    "stockCount": 12,
+    "image": "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?auto=format&fit=crop&w=800&q=80"
+    ],
+    "description": "Rugged all-weather alpine boots featuring waterproof HydroGuard membrane, 2.0mm waterproof nubuck leather, and multidirectional Vibram Arctic Grip rubber outsoles.",
+    "features": [
+      "Waterproof breathable HydroGuard internal bootie barrier",
+      "Premium 2.0mm waterproof oiled nubuck leather exterior",
+      "Vibram Megagrip lugged outsole for traction on wet boulders and mud",
+      "Dual-density EVA midsole with embedded TPU torsional stability shank"
+    ],
+    "colors": ["#78350f", "#3f3f46"],
+    "specs": {
+      "Weight": "495g per boot",
+      "Upper": "Oiled Nubuck Leather & Ballistic Nylon",
+      "Sole": "Vibram Megagrip Rubber compound",
+      "Ankle Support": "Mid-cut with padded collar"
+    },
+    "reviews": [
+      {
+        "id": "r1601",
+        "author": "Craig Mitchell",
+        "rating": 5,
+        "date": "1 week ago",
+        "comment": "Zero blisters right out of the box on a 15-mile trek through the Scottish Highlands."
+      }
+    ]
+  }
+]
