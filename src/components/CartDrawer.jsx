@@ -9,8 +9,7 @@ import {
   ArrowRight,
   Tag,
   ShieldCheck,
-  CheckCircle2,
-  Sparkles
+  CheckCircle2
 } from 'lucide-react';
 
 export const CartDrawer = () => {
@@ -19,7 +18,6 @@ export const CartDrawer = () => {
     isCartOpen,
     setIsCartOpen,
     updateQuantity,
-    setItemQuantity,
     removeFromCart,
     clearCart,
     cartSubtotal,
@@ -38,143 +36,142 @@ export const CartDrawer = () => {
     setActiveView
   } = useShop();
 
-  const [promoInput, setPromoInput] = useState('');
+  const [couponInput, setCouponInput] = useState('');
 
   if (!isCartOpen) return null;
 
-  const handleApplyCoupon = (e) => {
+  const handleApply = (e) => {
     e.preventDefault();
-    if (!promoInput.trim()) return;
-    applyCoupon(promoInput);
-    setPromoInput('');
+    if (!couponInput.trim()) return;
+    applyCoupon(couponInput);
+    setCouponInput('');
   };
 
-  const handleCheckoutClick = () => {
+  const handleCheckout = () => {
     setIsCartOpen(false);
     setIsCheckoutOpen(true);
   };
 
-  const handleContinueShopping = () => {
+  const handleBrowse = () => {
     setIsCartOpen(false);
     setActiveView('shop');
   };
 
-  // Free shipping calculations
-  const remainingForFreeShipping = Math.max(0, freeShippingThreshold - discountedSubtotal);
-  const shippingProgress = Math.min(100, (discountedSubtotal / freeShippingThreshold) * 100);
+  const remainingForFree = Math.max(0, freeShippingThreshold - discountedSubtotal);
+  const shippingPercent = Math.min(100, (discountedSubtotal / freeShippingThreshold) * 100);
 
   return (
     <div className="drawer-overlay" onClick={() => setIsCartOpen(false)}>
       <div
-        className="drawer-panel cart-drawer-panel"
+        className="morae-drawer-panel"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
-        aria-label="Shopping Cart"
+        aria-label="Shopping Bag"
       >
-        {/* Drawer Header */}
-        <div className="drawer-header">
-          <div className="drawer-title-wrap">
-            <ShoppingBag size={20} />
-            <h3>Your Shopping Bag</h3>
-            <span className="drawer-count-badge">({cartCount})</span>
+        {/* Header */}
+        <div className="drawer-top-bar">
+          <div className="drawer-title-group">
+            <span className="drawer-tag">[ CART ARCHIVE ]</span>
+            <h3 className="drawer-heading">Shopping Bag ({cartCount})</h3>
           </div>
           <button
             className="drawer-close-btn"
             onClick={() => setIsCartOpen(false)}
             aria-label="Close cart"
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 
-        {/* Free Shipping Progress Strip */}
+        {/* Free Shipping Meter */}
         {cart.length > 0 && (
-          <div className="free-shipping-meter">
-            {remainingForFreeShipping > 0 ? (
-              <p className="shipping-text">
-                Add <strong>${remainingForFreeShipping.toFixed(2)}</strong> more to get <strong>FREE Shipping!</strong>
+          <div className="morae-shipping-meter">
+            {remainingForFree > 0 ? (
+              <p className="shipping-hint">
+                Add <strong>${remainingForFree.toFixed(2)}</strong> for complimentary courier dispatch.
               </p>
             ) : (
-              <p className="shipping-text shipping-qualified">
-                <CheckCircle2 size={16} />
-                <span>You unlocked <strong>FREE Standard Shipping!</strong></span>
+              <p className="shipping-hint shipping-unlocked">
+                <CheckCircle2 size={15} />
+                <span>Complimentary express courier shipping unlocked.</span>
               </p>
             )}
-            <div className="meter-track">
+            <div className="meter-rail">
               <div
-                className={`meter-bar ${remainingForFreeShipping === 0 ? 'completed' : ''}`}
-                style={{ width: `${shippingProgress}%` }}
+                className={`meter-fill ${remainingForFree === 0 ? 'full' : ''}`}
+                style={{ width: `${shippingPercent}%` }}
               />
             </div>
           </div>
         )}
 
-        {/* Drawer Body: Cart Items */}
-        <div className="drawer-body">
+        {/* Drawer Body: Items */}
+        <div className="drawer-scroll-body">
           {cart.length === 0 ? (
-            <div className="drawer-empty-state">
-              <div className="empty-cart-icon">
-                <ShoppingBag size={56} />
+            <div className="drawer-empty-view">
+              <div className="empty-cart-orb">
+                <ShoppingBag size={48} />
               </div>
               <h4>Your bag is currently empty</h4>
-              <p>Explore our premium collections and discover something tailored for you.</p>
-              <button className="btn btn-primary" onClick={handleContinueShopping}>
-                <span>Start Shopping</span>
+              <p>Explore the MORAE catalog to select precision audio and lifestyle hardware.</p>
+              <button className="btn btn-primary" onClick={handleBrowse}>
+                <span>Explore Catalog</span>
                 <ArrowRight size={16} />
               </button>
             </div>
           ) : (
-            <div className="cart-items-list">
+            <div className="cart-products-list">
               {cart.map((item) => (
-                <div key={`${item.id}-${item.selectedColor || 'default'}`} className="cart-item-row">
-                  <img src={item.image} alt={item.name} className="cart-item-img" />
+                <div key={`${item.id}-${item.selectedColor || 'def'}`} className="morae-cart-item">
+                  <img src={item.image} alt={item.name} className="cart-item-thumbnail" />
 
-                  <div className="cart-item-details">
-                    <div className="cart-item-title-row">
-                      <h4 className="cart-item-name">{item.name}</h4>
+                  <div className="cart-item-col">
+                    <div className="cart-item-headline">
+                      <div>
+                        <span className="mono-code">MR-{String(item.id).padStart(2, '0')}</span>
+                        <h4 className="item-name">{item.name}</h4>
+                      </div>
                       <button
-                        className="cart-item-remove-btn"
+                        className="item-delete-btn"
                         onClick={() => removeFromCart(item.id, item.selectedColor)}
-                        title="Remove item"
+                        title="Remove release"
                         aria-label="Remove item"
                       >
-                        <Trash2 size={15} />
+                        <Trash2 size={14} />
                       </button>
                     </div>
 
                     {item.selectedColor && (
-                      <div className="cart-item-variant">
+                      <div className="item-variant-label">
                         <span
                           className="color-dot-indicator"
                           style={{ backgroundColor: item.selectedColor }}
                         />
-                        <span>Color variant</span>
+                        <span>Finish variant</span>
                       </div>
                     )}
 
-                    <div className="cart-item-bottom">
-                      {/* Quantity Controls */}
-                      <div className="cart-qty-controls">
+                    <div className="item-foot-row">
+                      <div className="morae-qty-stepper">
                         <button
-                          className="qty-btn-sm"
+                          className="stepper-btn"
                           onClick={() => updateQuantity(item.id, -1, item.selectedColor)}
                           aria-label="Decrease quantity"
                         >
-                          <Minus size={12} />
+                          <Minus size={11} />
                         </button>
-                        <span className="qty-value">{item.quantity}</span>
+                        <span className="stepper-val">{item.quantity}</span>
                         <button
-                          className="qty-btn-sm"
+                          className="stepper-btn"
                           onClick={() => updateQuantity(item.id, 1, item.selectedColor)}
                           aria-label="Increase quantity"
                         >
-                          <Plus size={12} />
+                          <Plus size={11} />
                         </button>
                       </div>
 
-                      {/* Total for this line item */}
-                      <span className="cart-item-price">
+                      <span className="item-line-price">
                         ${(item.price * item.quantity).toFixed(2)}
                       </span>
                     </div>
@@ -185,114 +182,113 @@ export const CartDrawer = () => {
           )}
         </div>
 
-        {/* Drawer Footer: Totals, Coupon & Checkout */}
+        {/* Drawer Footer */}
         {cart.length > 0 && (
-          <div className="drawer-footer">
-            {/* Promo Code Form */}
-            <div className="promo-section">
+          <div className="drawer-bottom-panel">
+            {/* Coupon Code Form */}
+            <div className="morae-coupon-wrap">
               {appliedCoupon ? (
-                <div className="applied-coupon-pill">
-                  <div className="coupon-left">
-                    <Tag size={14} />
+                <div className="coupon-active-badge">
+                  <div className="coupon-left-text">
+                    <Tag size={13} />
                     <span>
-                      Coupon: <strong>{appliedCoupon}</strong> ({(couponDiscountPercent * 100)}% off)
+                      VOUCHER: <strong>{appliedCoupon}</strong> ({(couponDiscountPercent * 100)}% OFF)
                     </span>
                   </div>
-                  <button className="remove-coupon-btn" onClick={removeCoupon}>
-                    Remove
+                  <button className="coupon-remove-link" onClick={removeCoupon}>
+                    [ REMOVE ]
                   </button>
                 </div>
               ) : (
-                <form className="coupon-input-form" onSubmit={handleApplyCoupon}>
-                  <div className="coupon-input-wrap">
-                    <Tag size={15} className="coupon-icon" />
+                <form className="coupon-form" onSubmit={handleApply}>
+                  <div className="coupon-field-group">
                     <input
                       type="text"
-                      placeholder="Promo code (e.g. SAVE15)"
-                      value={promoInput}
-                      onChange={(e) => setPromoInput(e.target.value)}
+                      placeholder="ENTER VOUCHER (SAVE15)"
+                      value={couponInput}
+                      onChange={(e) => setCouponInput(e.target.value)}
                     />
-                    <button type="submit" className="btn btn-sm btn-dark">
-                      Apply
+                    <button type="submit" className="btn-coupon-submit">
+                      APPLY
                     </button>
                   </div>
-                  <div className="quick-coupon-hints">
+                  <div className="coupon-quick-pills">
                     <span>Try:</span>
                     <button
                       type="button"
-                      className="coupon-tag-hint"
+                      className="coupon-quick-tag"
                       onClick={() => applyCoupon('SAVE15')}
                     >
-                      SAVE15 (15% off)
+                      SAVE15 (15% OFF)
                     </button>
                     <button
                       type="button"
-                      className="coupon-tag-hint"
+                      className="coupon-quick-tag"
                       onClick={() => applyCoupon('WELCOME10')}
                     >
-                      WELCOME10 (10% off)
+                      WELCOME10 (10% OFF)
                     </button>
                   </div>
                 </form>
               )}
             </div>
 
-            {/* Price Calculations Breakdown */}
-            <div className="cart-breakdown-table">
-              <div className="breakdown-row">
+            {/* Calculations Breakdown */}
+            <div className="morae-breakdown">
+              <div className="calc-row">
                 <span>Subtotal</span>
                 <span>${cartSubtotal.toFixed(2)}</span>
               </div>
 
               {discountAmount > 0 && (
-                <div className="breakdown-row discount-row">
-                  <span>Discount ({(couponDiscountPercent * 100)}%)</span>
+                <div className="calc-row discount-text">
+                  <span>Voucher Discount ({(couponDiscountPercent * 100)}%)</span>
                   <span>-${discountAmount.toFixed(2)}</span>
                 </div>
               )}
 
-              <div className="breakdown-row">
-                <span>Shipping</span>
+              <div className="calc-row">
+                <span>Courier Shipping</span>
                 <span>
                   {shippingCost === 0 ? (
-                    <strong className="free-shipping-tag">FREE</strong>
+                    <strong className="free-tag">COMPLIMENTARY</strong>
                   ) : (
                     `$${shippingCost.toFixed(2)}`
                   )}
                 </span>
               </div>
 
-              <div className="breakdown-row">
-                <span>Estimated Sales Tax (8%)</span>
+              <div className="calc-row">
+                <span>Sales Tax (8%)</span>
                 <span>${tax.toFixed(2)}</span>
               </div>
 
-              <div className="breakdown-row total-row">
+              <div className="calc-row total-highlight">
                 <span>Total</span>
-                <span className="total-amount">${cartTotal.toFixed(2)}</span>
+                <span>${cartTotal.toFixed(2)}</span>
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="drawer-actions-block">
-              <button className="btn btn-primary btn-block btn-lg" onClick={handleCheckoutClick}>
+            {/* Primary Action Button */}
+            <div className="drawer-actions-stack">
+              <button className="btn btn-primary btn-block btn-lg" onClick={handleCheckout}>
                 <span>Proceed to Checkout</span>
-                <ArrowRight size={18} />
+                <ArrowRight size={17} />
               </button>
 
-              <div className="drawer-sub-actions">
-                <button className="btn-text-link" onClick={handleContinueShopping}>
-                  Continue Shopping
+              <div className="drawer-secondary-links">
+                <button className="text-link" onClick={handleBrowse}>
+                  Continue Browsing
                 </button>
-                <button className="btn-text-link btn-danger-link" onClick={clearCart}>
+                <button className="text-link danger-link" onClick={clearCart}>
                   Clear Bag
                 </button>
               </div>
             </div>
 
-            <div className="secure-badge-note">
-              <ShieldCheck size={14} />
-              <span>Safe &amp; Secure 256-Bit Encrypted Checkout</span>
+            <div className="drawer-security-note">
+              <ShieldCheck size={13} />
+              <span>256-Bit Encrypted Secure Channel</span>
             </div>
           </div>
         )}

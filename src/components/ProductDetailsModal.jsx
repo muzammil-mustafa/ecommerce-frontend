@@ -29,7 +29,7 @@ export const ProductDetailsModal = () => {
 
   if (!selectedProduct) return null;
 
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [activeImgIndex, setActiveImgIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(
     selectedProduct.colors && selectedProduct.colors.length > 0
       ? selectedProduct.colors[0]
@@ -38,16 +38,15 @@ export const ProductDetailsModal = () => {
   const [quantity, setQuantity] = useState(1);
   const [addedSuccess, setAddedSuccess] = useState(false);
 
-  // Review submission state
+  // Reviews state
   const [reviewsList, setReviewsList] = useState(selectedProduct.reviews || []);
-  const [newReviewAuthor, setNewReviewAuthor] = useState('');
-  const [newReviewRating, setNewReviewRating] = useState(5);
-  const [newReviewComment, setNewReviewComment] = useState('');
+  const [authorName, setAuthorName] = useState('');
+  const [reviewRating, setReviewRating] = useState(5);
+  const [reviewComment, setReviewComment] = useState('');
   const [showReviewForm, setShowReviewForm] = useState(false);
 
-  // Reset state when selectedProduct changes
   useEffect(() => {
-    setActiveImageIndex(0);
+    setActiveImgIndex(0);
     setSelectedColor(
       selectedProduct.colors && selectedProduct.colors.length > 0
         ? selectedProduct.colors[0]
@@ -58,7 +57,6 @@ export const ProductDetailsModal = () => {
     setShowReviewForm(false);
   }, [selectedProduct]);
 
-  // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') setSelectedProduct(null);
@@ -72,15 +70,16 @@ export const ProductDetailsModal = () => {
     : [selectedProduct.image];
 
   const isFavorited = isInWishlist(selectedProduct.id);
+  const itemCode = `MR-${String(selectedProduct.id).padStart(2, '0')}`;
 
-  const handleQuantityChange = (delta) => {
+  const handleQtyChange = (delta) => {
     setQuantity((prev) => {
       const next = prev + delta;
       return next >= 1 && next <= (selectedProduct.stockCount || 99) ? next : prev;
     });
   };
 
-  const handleAddToCart = () => {
+  const handleAdd = () => {
     addToCart(selectedProduct, quantity, selectedColor);
     setAddedSuccess(true);
     setTimeout(() => setAddedSuccess(false), 2000);
@@ -92,26 +91,25 @@ export const ProductDetailsModal = () => {
     setIsCheckoutOpen(true);
   };
 
-  const handleAddReview = (e) => {
+  const handleReviewSubmit = (e) => {
     e.preventDefault();
-    if (!newReviewAuthor.trim() || !newReviewComment.trim()) return;
+    if (!authorName.trim() || !reviewComment.trim()) return;
 
     const newRev = {
       id: 'rev-' + Date.now(),
-      author: newReviewAuthor.trim(),
-      rating: newReviewRating,
+      author: authorName.trim(),
+      rating: reviewRating,
       date: 'Just now',
-      comment: newReviewComment.trim()
+      comment: reviewComment.trim()
     };
 
     setReviewsList([newRev, ...reviewsList]);
-    setNewReviewAuthor('');
-    setNewReviewComment('');
+    setAuthorName('');
+    setReviewComment('');
     setShowReviewForm(false);
   };
 
-  // Related products (same category excluding current)
-  const relatedProducts = products
+  const related = products
     .filter((p) => p.category === selectedProduct.category && p.id !== selectedProduct.id)
     .slice(0, 3);
 
@@ -122,7 +120,7 @@ export const ProductDetailsModal = () => {
   return (
     <div className="modal-backdrop" onClick={() => setSelectedProduct(null)}>
       <div
-        className="product-modal-dialog"
+        className="morae-modal-dialog"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -130,191 +128,187 @@ export const ProductDetailsModal = () => {
       >
         {/* Close Button */}
         <button
-          className="modal-close-btn"
+          className="morae-modal-close"
           onClick={() => setSelectedProduct(null)}
-          aria-label="Close product details"
+          aria-label="Close modal"
         >
-          <X size={20} />
+          <X size={18} />
         </button>
 
-        <div className="modal-content-grid">
-          {/* Left Column: Gallery & Images */}
-          <div className="modal-gallery-column">
-            <div className="main-display-image-wrap">
+        <div className="morae-modal-grid">
+          {/* Left Column: Visual Gallery */}
+          <div className="modal-col-gallery">
+            <div className="modal-display-frame">
               <img
-                src={images[activeImageIndex] || selectedProduct.image}
+                src={images[activeImgIndex] || selectedProduct.image}
                 alt={selectedProduct.name}
-                className="main-display-image"
+                className="modal-display-img"
               />
-              {selectedProduct.badge && (
-                <span className="modal-badge-tag">{selectedProduct.badge}</span>
-              )}
+              <span className="modal-top-code">[{itemCode} / SPEC]</span>
             </div>
 
             {images.length > 1 && (
-              <div className="gallery-thumbnails-row">
-                {images.map((imgUrl, idx) => (
+              <div className="modal-thumbs-strip">
+                {images.map((url, i) => (
                   <button
-                    key={idx}
-                    className={`thumb-btn ${activeImageIndex === idx ? 'active' : ''}`}
-                    onClick={() => setActiveImageIndex(idx)}
-                    aria-label={`View photo ${idx + 1}`}
+                    key={i}
+                    className={`thumb-box ${activeImgIndex === i ? 'active' : ''}`}
+                    onClick={() => setActiveImgIndex(i)}
+                    aria-label={`View angle ${i + 1}`}
                   >
-                    <img src={imgUrl} alt={`Thumbnail ${idx + 1}`} />
+                    <img src={url} alt={`Angle ${i + 1}`} />
                   </button>
                 ))}
               </div>
             )}
 
-            {/* Quick Guarantees Under Image */}
-            <div className="modal-trust-box">
-              <div className="trust-row">
-                <Truck size={16} />
-                <span>Free standard shipping over $75</span>
+            <div className="modal-specs-box">
+              <div className="spec-item-row">
+                <Truck size={15} />
+                <span>Complimentary express courier shipping over $75</span>
               </div>
-              <div className="trust-row">
-                <RotateCcw size={16} />
-                <span>30 days free return policy</span>
+              <div className="spec-item-row">
+                <RotateCcw size={15} />
+                <span>30-day inspection period &amp; hassle-free returns</span>
               </div>
-              <div className="trust-row">
-                <ShieldCheck size={16} />
-                <span>Official 2-year warranty included</span>
+              <div className="spec-item-row">
+                <ShieldCheck size={15} />
+                <span>Official 12-month manufacturer limited warranty</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Information, Options & Actions */}
-          <div className="modal-info-column">
-            <div className="modal-category-badge">{selectedProduct.category}</div>
-            <h1 className="modal-product-title">{selectedProduct.name}</h1>
+          {/* Right Column: Details & Order Controls */}
+          <div className="modal-col-details">
+            <div className="modal-dept-label">
+              <span>[ {selectedProduct.category.toUpperCase()} ]</span>
+            </div>
 
-            {/* Rating & Reviews counter */}
-            <div className="modal-ratings-summary">
+            <h1 className="modal-title-text">{selectedProduct.name}</h1>
+
+            {/* Ratings */}
+            <div className="modal-review-summary">
               <div className="stars-cluster">
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
-                    size={16}
+                    size={14}
                     className={`star-icon ${i < Math.floor(selectedProduct.rating) ? 'filled' : ''}`}
                   />
                 ))}
               </div>
-              <span className="rating-num"><strong>{selectedProduct.rating}</strong>/5</span>
-              <span className="review-count">({reviewsList.length} verified reviews)</span>
+              <span className="mono-rating-score"><strong>{selectedProduct.rating}</strong> / 5.0</span>
+              <span className="mono-rating-count">({reviewsList.length} reviews)</span>
             </div>
 
-            {/* Price Box */}
-            <div className="modal-price-box">
-              <span className="modal-active-price">${selectedProduct.price.toFixed(2)}</span>
+            {/* Price line */}
+            <div className="modal-price-display">
+              <span className="active-price">${selectedProduct.price.toFixed(2)}</span>
               {selectedProduct.originalPrice && (
                 <>
-                  <span className="modal-strikethrough-price">
-                    ${selectedProduct.originalPrice.toFixed(2)}
-                  </span>
-                  <span className="modal-discount-pill">Save {discountPercent}%</span>
+                  <span className="strikethrough-price">${selectedProduct.originalPrice.toFixed(2)}</span>
+                  <span className="discount-tag">SAVE {discountPercent}%</span>
                 </>
               )}
             </div>
 
             {/* Stock status indicator */}
-            <div className="stock-status-line">
-              <span className={`status-dot ${selectedProduct.inStock ? 'in-stock' : 'out-of-stock'}`} />
-              <span className="status-text">
+            <div className="modal-stock-indicator">
+              <span className={`status-orb ${selectedProduct.inStock ? 'in-stock' : 'out-of-stock'}`} />
+              <span className="mono-stock-label">
                 {selectedProduct.inStock
-                  ? `In Stock (${selectedProduct.stockCount} units available)`
-                  : 'Currently Out of Stock'}
+                  ? `IN STOCK — ${selectedProduct.stockCount} UNITS AVAILABLE`
+                  : 'CURRENTLY OUT OF STOCK'}
               </span>
             </div>
 
             {/* Description */}
-            <p className="modal-description-text">{selectedProduct.description}</p>
+            <p className="modal-desc-body">{selectedProduct.description}</p>
 
-            {/* Key Features Bullet Points */}
-            {selectedProduct.features && selectedProduct.features.length > 0 && (
-              <div className="modal-features-list">
-                <h4>Key Features</h4>
+            {/* Features */}
+            {selectedProduct.features && (
+              <div className="modal-features-block">
+                <span className="mono-features-header">[ HIGHLIGHTED SPECIFICATIONS ]</span>
                 <ul>
-                  {selectedProduct.features.map((feature, i) => (
+                  {selectedProduct.features.map((feat, i) => (
                     <li key={i}>
-                      <Check size={14} className="feature-check-icon" />
-                      <span>{feature}</span>
+                      <span className="bullet-dash">—</span>
+                      <span>{feat}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
 
-            {/* Color Swatch Selector */}
-            {selectedProduct.colors && selectedProduct.colors.length > 0 && (
-              <div className="modal-option-group">
-                <span className="option-label">Color Finish:</span>
-                <div className="color-swatches-interactive">
+            {/* Color Swatch Options */}
+            {selectedProduct.colors && (
+              <div className="modal-variant-block">
+                <span className="mono-subhead">[ FINISH VARIANT ]</span>
+                <div className="variant-swatch-list">
                   {selectedProduct.colors.map((color) => (
                     <button
                       key={color}
-                      className={`color-pick-circle ${selectedColor === color ? 'selected' : ''}`}
+                      className={`swatch-ring ${selectedColor === color ? 'selected' : ''}`}
                       style={{ backgroundColor: color }}
                       onClick={() => setSelectedColor(color)}
-                      aria-label={`Select color ${color}`}
+                      aria-label={`Select finish ${color}`}
                     />
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Quantity Controls & Action Buttons */}
-            <div className="modal-actions-area">
-              <div className="quantity-controls-block">
-                <span className="option-label">Quantity:</span>
-                <div className="quantity-selector">
+            {/* Quantity Adjuster & Actions */}
+            <div className="modal-order-panel">
+              <div className="qty-control-row">
+                <span className="mono-subhead">[ QUANTITY ]</span>
+                <div className="morae-qty-selector">
                   <button
-                    className="qty-btn"
-                    onClick={() => handleQuantityChange(-1)}
+                    className="qty-step-btn"
+                    onClick={() => handleQtyChange(-1)}
                     disabled={quantity <= 1}
                     aria-label="Decrease quantity"
                   >
-                    <Minus size={15} />
+                    <Minus size={13} />
                   </button>
                   <input
                     type="number"
-                    className="qty-input"
+                    className="qty-number-input"
                     value={quantity}
                     onChange={(e) => {
-                      const val = parseInt(e.target.value, 10);
-                      if (!isNaN(val) && val >= 1 && val <= selectedProduct.stockCount) {
-                        setQuantity(val);
-                      }
+                      const v = parseInt(e.target.value, 10);
+                      if (!isNaN(v) && v >= 1 && v <= selectedProduct.stockCount) setQuantity(v);
                     }}
                     min="1"
                     max={selectedProduct.stockCount}
                   />
                   <button
-                    className="qty-btn"
-                    onClick={() => handleQuantityChange(1)}
+                    className="qty-step-btn"
+                    onClick={() => handleQtyChange(1)}
                     disabled={quantity >= selectedProduct.stockCount}
                     aria-label="Increase quantity"
                   >
-                    <Plus size={15} />
+                    <Plus size={13} />
                   </button>
                 </div>
               </div>
 
-              {/* Add to Cart & Buy Now */}
-              <div className="modal-button-cluster">
+              {/* Action Buttons */}
+              <div className="modal-btn-cluster">
                 <button
                   className={`btn btn-primary btn-block ${addedSuccess ? 'btn-success' : ''}`}
-                  onClick={handleAddToCart}
+                  onClick={handleAdd}
                   disabled={!selectedProduct.inStock}
                 >
                   {addedSuccess ? (
                     <>
-                      <Check size={18} />
-                      <span>Added to Cart!</span>
+                      <Check size={16} />
+                      <span>ADDED TO SHOPPING BAG</span>
                     </>
                   ) : (
                     <>
-                      <ShoppingBag size={18} />
-                      <span>Add to Cart - ${(selectedProduct.price * quantity).toFixed(2)}</span>
+                      <ShoppingBag size={16} />
+                      <span>ADD TO BAG — ${(selectedProduct.price * quantity).toFixed(2)}</span>
                     </>
                   )}
                 </button>
@@ -324,29 +318,29 @@ export const ProductDetailsModal = () => {
                   onClick={handleBuyNow}
                   disabled={!selectedProduct.inStock}
                 >
-                  <Zap size={18} />
-                  <span>Instant Checkout</span>
+                  <Zap size={16} />
+                  <span>INSTANT CHECKOUT</span>
                 </button>
 
                 <button
-                  className={`btn btn-outline btn-block ${isFavorited ? 'wishlist-active' : ''}`}
+                  className={`btn btn-outline btn-block ${isFavorited ? 'active-fav' : ''}`}
                   onClick={() => toggleWishlist(selectedProduct)}
                 >
-                  <Heart size={18} fill={isFavorited ? '#ef4444' : 'none'} color={isFavorited ? '#ef4444' : 'currentColor'} />
-                  <span>{isFavorited ? 'Saved in Wishlist' : 'Add to Wishlist'}</span>
+                  <Heart size={16} fill={isFavorited ? '#fc721b' : 'none'} color={isFavorited ? '#fc721b' : 'currentColor'} />
+                  <span>{isFavorited ? 'SAVED IN WISHLIST' : 'SAVE TO WISHLIST'}</span>
                 </button>
               </div>
             </div>
 
-            {/* Technical Specifications */}
-            {selectedProduct.specs && Object.keys(selectedProduct.specs).length > 0 && (
-              <div className="modal-specs-section">
-                <h4>Technical Specifications</h4>
-                <div className="specs-table">
-                  {Object.entries(selectedProduct.specs).map(([key, val]) => (
-                    <div key={key} className="spec-row">
-                      <span className="spec-key">{key}</span>
-                      <span className="spec-val">{val}</span>
+            {/* Technical Specs Table */}
+            {selectedProduct.specs && (
+              <div className="modal-specs-table-block">
+                <span className="mono-subhead">[ ARCHITECTURAL PARAMETERS ]</span>
+                <div className="morae-specs-grid">
+                  {Object.entries(selectedProduct.specs).map(([k, v]) => (
+                    <div key={k} className="spec-grid-row">
+                      <span className="spec-k">{k}</span>
+                      <span className="spec-v">{v}</span>
                     </div>
                   ))}
                 </div>
@@ -354,106 +348,104 @@ export const ProductDetailsModal = () => {
             )}
 
             {/* Customer Reviews Section */}
-            <div className="modal-reviews-section">
-              <div className="reviews-header-bar">
-                <h4>Customer Reviews ({reviewsList.length})</h4>
+            <div className="modal-reviews-block">
+              <div className="reviews-top-bar">
+                <span className="mono-subhead">[ REVIEWS ({reviewsList.length}) ]</span>
                 <button
-                  className="btn-sm btn-ghost"
+                  className="btn-ghost-sm"
                   onClick={() => setShowReviewForm(!showReviewForm)}
                 >
-                  <MessageSquarePlus size={15} />
-                  <span>{showReviewForm ? 'Cancel Review' : 'Write Review'}</span>
+                  <MessageSquarePlus size={14} />
+                  <span>{showReviewForm ? 'CANCEL' : 'WRITE REVIEW'}</span>
                 </button>
               </div>
 
-              {/* Review submission form */}
               {showReviewForm && (
-                <form className="add-review-form" onSubmit={handleAddReview}>
+                <form className="modal-review-form" onSubmit={handleReviewSubmit}>
                   <div className="form-group">
-                    <label>Your Name</label>
+                    <label>[ YOUR NAME ]</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Alex Morgan"
-                      value={newReviewAuthor}
-                      onChange={(e) => setNewReviewAuthor(e.target.value)}
+                      value={authorName}
+                      onChange={(e) => setAuthorName(e.target.value)}
                     />
                   </div>
                   <div className="form-group">
-                    <label>Rating</label>
-                    <div className="star-rating-picker">
-                      {[1, 2, 3, 4, 5].map((star) => (
+                    <label>[ RATING SCORE ]</label>
+                    <div className="rating-select-row">
+                      {[1, 2, 3, 4, 5].map((s) => (
                         <button
-                          key={star}
+                          key={s}
                           type="button"
                           className="star-pick-btn"
-                          onClick={() => setNewReviewRating(star)}
+                          onClick={() => setReviewRating(s)}
                         >
                           <Star
-                            size={18}
-                            className={`star-icon ${star <= newReviewRating ? 'filled' : ''}`}
+                            size={16}
+                            className={`star-icon ${s <= reviewRating ? 'filled' : ''}`}
                           />
                         </button>
                       ))}
                     </div>
                   </div>
                   <div className="form-group">
-                    <label>Review Comment</label>
+                    <label>[ FEEDBACK &amp; OBSERVATION ]</label>
                     <textarea
-                      required
                       rows="3"
-                      placeholder="How was the product quality, performance, or fit?"
-                      value={newReviewComment}
-                      onChange={(e) => setNewReviewComment(e.target.value)}
+                      required
+                      placeholder="Comment on acoustic fidelity, materials, or durability..."
+                      value={reviewComment}
+                      onChange={(e) => setReviewComment(e.target.value)}
                     />
                   </div>
                   <button type="submit" className="btn btn-primary btn-sm">
                     <Send size={14} />
-                    <span>Submit Review</span>
+                    <span>POST REVIEW</span>
                   </button>
                 </form>
               )}
 
-              {/* Reviews List */}
-              <div className="reviews-cards-list">
+              <div className="reviews-scroll-list">
                 {reviewsList.map((rev) => (
-                  <div key={rev.id} className="review-card-item">
-                    <div className="review-card-header">
-                      <span className="review-author">{rev.author}</span>
-                      <span className="review-date">{rev.date}</span>
+                  <div key={rev.id} className="morae-review-card">
+                    <div className="rev-header">
+                      <span className="rev-name">{rev.author}</span>
+                      <span className="rev-date">{rev.date}</span>
                     </div>
-                    <div className="review-stars-row">
+                    <div className="rev-stars">
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          size={13}
+                          size={12}
                           className={`star-icon ${i < rev.rating ? 'filled' : ''}`}
                         />
                       ))}
                     </div>
-                    <p className="review-comment-text">{rev.comment}</p>
+                    <p className="rev-text">"{rev.comment}"</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Related Products Recommendations */}
-            {relatedProducts.length > 0 && (
-              <div className="modal-related-section">
-                <h4>Similar Items in {selectedProduct.category}</h4>
-                <div className="related-items-row">
-                  {relatedProducts.map((rel) => (
+            {/* Related Hardware */}
+            {related.length > 0 && (
+              <div className="modal-related-block">
+                <span className="mono-subhead">[ RELATED HARDWARE ]</span>
+                <div className="related-cards-row">
+                  {related.map((rel) => (
                     <div
                       key={rel.id}
-                      className="related-item-card"
+                      className="related-item-tile"
                       onClick={() => setSelectedProduct(rel)}
                       role="button"
                       tabIndex={0}
                     >
                       <img src={rel.image} alt={rel.name} />
-                      <div className="related-item-info">
-                        <span className="related-item-name">{rel.name}</span>
-                        <span className="related-item-price">${rel.price.toFixed(2)}</span>
+                      <div className="rel-info">
+                        <span className="rel-name">{rel.name}</span>
+                        <span className="rel-price">${rel.price.toFixed(2)}</span>
                       </div>
                     </div>
                   ))}

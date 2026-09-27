@@ -2,12 +2,10 @@ import React from 'react';
 import { useShop } from '../context/ShopContext';
 import { ProductCard } from './ProductCard';
 import {
-  SlidersHorizontal,
   LayoutGrid,
   List,
   RotateCcw,
-  Sparkles,
-  Search,
+  SlidersHorizontal,
   FilterX
 } from 'lucide-react';
 
@@ -46,53 +44,53 @@ export const ProductGrid = () => {
     inStockOnly;
 
   return (
-    <section className="product-grid-section" id="product-catalog">
-      {/* Category Pills Navigation */}
-      <div className="category-pills-bar">
-        <div className="pills-scroll-container">
-          {categories.map((category) => {
-            const count = category === 'All'
+    <section className="morae-catalog-section" id="catalog">
+      {/* Category Pills Strip */}
+      <div className="morae-pills-bar">
+        <div className="pills-scroll-track">
+          {categories.map((cat) => {
+            const count = cat === 'All'
               ? products.length
-              : products.filter((p) => p.category === category).length;
-            const isActive = selectedCategory === category;
+              : products.filter((p) => p.category === cat).length;
+            const active = selectedCategory === cat;
 
             return (
               <button
-                key={category}
-                className={`category-pill ${isActive ? 'active' : ''}`}
-                onClick={() => setSelectedCategory(category)}
+                key={cat}
+                className={`morae-pill ${active ? 'active' : ''}`}
+                onClick={() => setSelectedCategory(cat)}
               >
-                <span>{category}</span>
-                <span className="pill-badge">{count}</span>
+                <span>{cat.toUpperCase()}</span>
+                <span className="pill-num">[{count}]</span>
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Control Toolbar */}
-      <div className="catalog-toolbar">
-        {/* Left: Results Info */}
-        <div className="toolbar-info">
-          <h2 className="catalog-title">
-            {selectedCategory === 'All' ? 'All Products' : `${selectedCategory}`}
+      {/* Catalog Control Toolbar */}
+      <div className="morae-toolbar">
+        {/* Left: Info */}
+        <div className="toolbar-left-info">
+          <h2 className="toolbar-section-title">
+            {selectedCategory === 'All' ? 'ALL ARCHIVE RELEASES' : `${selectedCategory.toUpperCase()}`}
           </h2>
-          <span className="results-count">
-            Showing <strong>{filteredProducts.length}</strong> of {products.length} items
+          <span className="mono-results-counter">
+            SHOWING <strong>{filteredProducts.length}</strong> / {products.length} ITEMS
           </span>
           {searchQuery && (
-            <span className="search-query-tag">
-              Matching "<strong>{searchQuery}</strong>"
-              <button onClick={() => setSearchQuery('')} aria-label="Clear search">×</button>
+            <span className="search-filter-tag">
+              QUERY: "<strong>{searchQuery}</strong>"
+              <button onClick={() => setSearchQuery('')} aria-label="Clear query">×</button>
             </span>
           )}
         </div>
 
-        {/* Right: Controls & Sorting */}
-        <div className="toolbar-controls">
-          {/* Price Range Quick Filter */}
-          <div className="filter-price-box">
-            <span className="filter-label">Max: ${priceRange[1]}</span>
+        {/* Right: Controls */}
+        <div className="toolbar-right-controls">
+          {/* Price Range Slider */}
+          <div className="morae-price-filter">
+            <span className="filter-mono-label">MAX: ${priceRange[1]}</span>
             <input
               type="range"
               min="30"
@@ -100,67 +98,65 @@ export const ProductGrid = () => {
               step="10"
               value={priceRange[1]}
               onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-              className="price-slider"
+              className="morae-slider"
               title={`Max price: $${priceRange[1]}`}
             />
           </div>
 
           {/* In Stock Toggle */}
-          <label className="checkbox-toggle-label">
+          <label className="morae-checkbox-label">
             <input
               type="checkbox"
               checked={inStockOnly}
               onChange={(e) => setInStockOnly(e.target.checked)}
             />
-            <span className="checkbox-text">In Stock Only</span>
+            <span className="checkbox-mono-text">IN STOCK</span>
           </label>
 
-          {/* Sort Dropdown */}
-          <div className="sort-dropdown-wrapper">
-            <label htmlFor="sort-select" className="sr-only">Sort by</label>
+          {/* Sort Selector */}
+          <div className="morae-sort-wrap">
             <select
-              id="sort-select"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="sort-select"
+              className="morae-sort-select"
             >
-              <option value="featured">Featured / Best Match</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="rating">Highest Rated</option>
-              <option value="newest">Newest Arrivals</option>
+              <option value="featured">[ SORT: FEATURED ]</option>
+              <option value="price-asc">[ PRICE: LOW TO HIGH ]</option>
+              <option value="price-desc">[ PRICE: HIGH TO LOW ]</option>
+              <option value="rating">[ HIGHEST RATED ]</option>
+              <option value="newest">[ NEWEST RELEASES ]</option>
             </select>
           </div>
 
           {/* View Mode Toggle */}
-          <div className="view-mode-toggle">
+          <div className="morae-view-toggle">
             <button
-              className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+              className={`view-icon-btn ${viewMode === 'grid' ? 'active' : ''}`}
               onClick={() => setViewMode('grid')}
               aria-label="Grid view"
-              title="Grid view"
+              title="Grid layout"
             >
-              <LayoutGrid size={18} />
+              <LayoutGrid size={16} />
             </button>
             <button
-              className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+              className={`view-icon-btn ${viewMode === 'list' ? 'active' : ''}`}
               onClick={() => setViewMode('list')}
               aria-label="List view"
-              title="List view"
+              title="List layout"
             >
-              <List size={18} />
+              <List size={16} />
             </button>
           </div>
 
-          {/* Reset Filters button if any filter is active */}
+          {/* Reset Filters button */}
           {isFiltered && (
             <button
-              className="reset-filters-btn"
+              className="morae-reset-btn"
               onClick={handleResetFilters}
               title="Reset all filters"
             >
-              <RotateCcw size={15} />
-              <span>Reset</span>
+              <RotateCcw size={13} />
+              <span>RESET</span>
             </button>
           )}
         </div>
@@ -168,7 +164,7 @@ export const ProductGrid = () => {
 
       {/* Grid or List of Product Cards */}
       {filteredProducts.length > 0 ? (
-        <div className={`products-container ${viewMode === 'list' ? 'products-list-layout' : 'products-grid-layout'}`}>
+        <div className={`morae-products-wrapper ${viewMode === 'list' ? 'layout-list' : 'layout-grid'}`}>
           {filteredProducts.map((product) => (
             <ProductCard
               key={product.id}
@@ -179,12 +175,12 @@ export const ProductGrid = () => {
         </div>
       ) : (
         /* Empty State */
-        <div className="empty-catalog-state">
-          <div className="empty-icon-wrap">
-            <FilterX size={48} />
+        <div className="morae-empty-catalog">
+          <div className="empty-icon-ring">
+            <FilterX size={44} />
           </div>
-          <h3>No products match your criteria</h3>
-          <p>Try broadening your search, removing filters, or resetting the price slider.</p>
+          <h3>NO HARDWARE MATCHES CRITERIA</h3>
+          <p>Adjust your search query or reset the price slider to discover available releases.</p>
           <button className="btn btn-primary" onClick={handleResetFilters}>
             <RotateCcw size={16} />
             <span>Reset All Filters</span>

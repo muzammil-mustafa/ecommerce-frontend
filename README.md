@@ -1,40 +1,58 @@
-# 🛍️ AuraStore — Modern E-Commerce Frontend
+# 🎧 MORAE® — Atmospheric E-Commerce Frontend
 
-An e-commerce product store built with **React 19**, **JavaScript (ES6+)**, and **Modern CSS**. Features local JSON mock data, persistent cart and wishlist using `localStorage`, category filtering, real-time search, price range filters, sorting, customer reviews, a slide-over cart with free-shipping meters, and an interactive 3-step checkout.
+A luxury e-commerce experience designed after the **[MORAE Shopiframe Framer Template](https://morae-shopiframe.framer.website/)**. Built with **React 19**, **JavaScript (ES6+)**, and **Modern Dark CSS**.
+
+Features atmospheric visuals, editorial typography (`Instrument Serif`, `Space Mono`), vibrant orange accents (`#fc721b`), persistent cart and wishlist using `localStorage`, category filtering, search, price range sorting, multi-step checkout, and full dedicated pages.
 
 ---
 
-## 🌟 Key Features
+## 🌟 Pages & Key Features
 
-- **🏠 Home Page**: Engaging hero banner with Deal of the Day card, flash sale countdown timer, trust and value proposition strip, category shortcuts, trending bestsellers, and customer testimonials.
-- **🔍 Search & Filter Engine**: Live multi-field search (by product name, description, and category), category tabs with counts, price slider (\$30 - \$300), and in-stock toggles.
-- **📊 Sorting**: Sort by Featured, Price (Low to High), Price (High to Low), Highest Customer Rating, and Newest Arrivals.
-- **🎴 Product Cards**: High-res Unsplash photography, hover zoom, discount badges, wishlist toggle with instant state, star ratings, and quick "Add to Cart" with visual feedback.
+- **🏠 Home Page (`/`)**:
+  - Signature MORAE hero headline: *"Silence speaks louder when design refuses to explain itself."*
+  - Flagship hardware visual card (`MR-01`) with ready-to-dispatch indicator
+  - 5-principle technical specifications strip (ANC, Transparent Mode, 40h Battery, Gestures, Adaptive Balance)
+  - 5-discipline category navigation cards
+  - Trending bestsellers & fresh releases
+  - Editorial manifesto banner: *"Transparent glass. Bold color. Pure experience."*
+  - Verified listener testimonials from London, Milan, and Seoul
+- **🛍️ Product Catalog Page (`/shop`)**:
+  - Monospace category tabs with exact item counters
+  - Real-time multi-attribute search (name, description, category)
+  - Price slider (\$30 - \$300) with orange indicator
+  - In-stock availability checkbox
+  - Sorting: Featured, Price Low/High, Rating, Newest Releases
+  - Layout toggle (4-column Grid View vs 1-column List View)
+- **📖 Philosophy & Craft Page (`/about`)**:
+  - *"Crafted for clarity, not applause."*
+  - 4 Performance Benchmarks (40h Battery, 32% Noise Reduction, 0.08s Latency, +27% Clarity)
+  - Vision and Honest Craft principles
+- **📬 Studio Contact Page (`/contact`)**:
+  - Direct studio coordinates (`support@morae.com`, telephone, studio hours)
+  - Interactive communication form with topic selector and confirmation state
 - **📄 Product Details Modal**:
-  - Image gallery with clickable thumbnail view selector
-  - Technical specifications table
-  - Color swatch selector
-  - Interactive quantity controls (`+`, `-`, direct input)
-  - "Add to Bag" and "Buy Now" (direct to checkout)
-  - Customer review list with a "Leave a Review" interactive form
-  - "You Might Also Like" related product recommendations
-- **🛒 Shopping Cart Drawer**:
-  - Free shipping progress bar (\$75 threshold tracker)
-  - Per-item quantity increment, decrement, and removal
-  - Promo code system (Try `SAVE15` for 15% off or `WELCOME10` for 10% off)
-  - Automatic subtotal, tax (8%), shipping calculation, and grand total
+  - Multi-angle clickable thumbnail gallery
+  - Technical parameters matrix
+  - Color finish variant swatches
+  - Stepper quantity controls
+  - "Add to Bag" & "Instant Checkout"
+  - Customer review list with interactive "Write Review" form
+  - Related hardware recommendations
+- **🛒 Shopping Bag Slide-Over**:
+  - Complimentary courier shipping progress rail (\$75 threshold)
+  - Per-item quantity adjustments & deletion
+  - Voucher system (Test code: `SAVE15` for 15% off, `WELCOME10` for 10% off)
+  - Automated subtotal, tax (8%), shipping, and total calculations
 - **❤️ Wishlist Drawer**:
-  - Save favorite items
-  - "Move to Bag" and "Move All to Bag"
-- **💳 Multi-Step Checkout Modal**:
-  - Step 1: Shipping address with validation
-  - Step 2: Payment method (Credit/Debit Card with formatted fields, PayPal Express, Cash on Delivery)
-  - Step 3: Order confirmation receipt with generated order reference ID and estimated delivery date
-- **📱 Responsive Mobile Design**:
-  - Full mobile navigation drawer and mobile search bar
-  - Touch-friendly layout
-  - Fixed mobile bottom navigation bar (Home, Catalog, Wishlist, Bag)
-- **🔔 Toast Notification System**: Animated feedback alerts for actions (e.g. adding items, applying coupons, saving to wishlist).
+  - Saved releases shortlist
+  - "Move to Bag" per item and "Move All to Shopping Bag"
+- **💳 3-Step Checkout Modal**:
+  - Step 1: Shipping address with country selection
+  - Step 2: Payment method (Credit Card with formatted fields, PayPal Express, Cash on Delivery)
+  - Step 3: Order confirmation receipt with generated reference ID (`AUR-XXXXXX`)
+- **📱 Responsive Mobile Experience**:
+  - Hamburger menu with category shortcuts and search
+  - Fixed mobile bottom navigation bar (Home, Catalog, Philosophy, Saved, Bag)
 
 ---
 
@@ -45,7 +63,7 @@ An e-commerce product store built with **React 19**, **JavaScript (ES6+)**, and 
 npm install
 ```
 
-### 2. Start the Local Development Server
+### 2. Start Local Development Server
 ```bash
 npm run dev
 ```
@@ -58,24 +76,24 @@ npm run build
 
 ---
 
-## 📖 Complete Learning Guide & Git Walkthrough
-
-A complete, educational breakdown of every component, state hook, and Git command is available in:
-👉 **[LEARNING_GUIDE.md](./LEARNING_GUIDE.md)**
-
----
-
-## 🏷️ Test Promo Codes
+## 🏷️ Test Voucher Codes
 - `SAVE15` — 15% off entire order
 - `WELCOME10` — 10% off entire order
 - `VIP20` — 20% off entire order
 
 ---
 
-## 🛠️ Tech Stack
-- **Framework**: [React 19](https://react.dev/)
-- **Bundler & Dev Server**: [Vite](https://vitejs.dev/)
-- **Language**: JavaScript (ES6+ Modules)
-- **Styling**: Modern CSS3 (Variables, Flexbox, CSS Grid, Glassmorphism, Responsive Media Queries)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Data**: Local JSON (`src/data/products.json`)
+## 📖 In-Depth Learning Guide
+
+For a line-by-line explanation of every component, state hook, and Git command:
+👉 **[LEARNING_GUIDE.md](./LEARNING_GUIDE.md)**
+
+---
+
+## 🐙 Push to GitHub
+
+```powershell
+cd "C:\Users\Muzamil Mustafa\.gemini\antigravity\scratch\ecommerce-frontend"
+git remote add origin https://github.com/YOUR_GITHUB_USERNAME/ecommerce-frontend.git
+git push -u origin main
+```

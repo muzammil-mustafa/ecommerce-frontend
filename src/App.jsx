@@ -9,17 +9,18 @@ import { CartDrawer } from './components/CartDrawer';
 import { WishlistDrawer } from './components/WishlistDrawer';
 import { CheckoutModal } from './components/CheckoutModal';
 import { ToastContainer } from './components/Toast';
+import { AboutView } from './components/AboutView';
+import { ContactView } from './components/ContactView';
 import { Footer } from './components/Footer';
 import {
-  Sparkles,
   ArrowRight,
   Star,
-  Quote,
-  Flame,
   Home,
   Store,
   Heart,
-  ShoppingBag
+  ShoppingBag,
+  Info,
+  Phone
 } from 'lucide-react';
 import './App.css';
 
@@ -35,191 +36,199 @@ const MainApp = () => {
     setSelectedCategory
   } = useShop();
 
-  // Bestsellers / Featured for Home page
-  const featuredProducts = products.filter((p) => p.badge === 'Bestseller').slice(0, 4);
+  const bestsellers = products.filter((p) => p.badge === 'Bestseller').slice(0, 4);
   const newArrivals = products.filter((p) => p.badge === 'New Arrival' || p.badge === 'Limited').slice(0, 4);
 
+  // MORAE Verified Testimonials
   const testimonials = [
     {
       id: 1,
-      quote: "The AuraStudio headphones sound noticeably crisper than my \$350 studio monitors. The battery life is unbelievable.",
-      author: "David Vance",
-      title: "Audio Engineer & Producer",
-      rating: 5,
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"
+      quote: "It feels like the world finally learned to whisper. You don’t realize how much chaos you carry until it takes it away.",
+      author: "Noah Patel",
+      title: "Sound Designer & Composer",
+      location: "London, UK"
     },
     {
       id: 2,
-      quote: "Shipping arrived in 2 days, and the packaging felt like unboxing a luxury designer piece. The selvedge jacket fits like a glove.",
-      author: "Sofia Reynolds",
-      title: "Architect & Creative Director",
-      rating: 5,
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80"
+      quote: "Every note sounds personal, like it knows who’s listening. The materials feel cool to the touch and disappear when worn.",
+      author: "Elena Rossi",
+      title: "Industrial Architect",
+      location: "Milan, IT"
     },
     {
       id: 3,
-      quote: "Exceptional shopping experience. Smooth checkout, crystal-clear tracking, and customer support replied in under 5 minutes.",
-      author: "Liam Chang",
-      title: "Product Designer",
-      rating: 5,
-      avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80"
+      quote: "I stopped checking the battery. It just never seems to die. Clean, unpretentious, and uncompromising in build.",
+      author: "David Kim",
+      title: "Creative Director",
+      location: "Seoul, KR"
     }
   ];
 
   return (
-    <div className="app-layout">
-      {/* Toast Notifications */}
+    <div className="morae-root-layout">
+      {/* Dynamic Toast Alerts */}
       <ToastContainer />
 
-      {/* Top Navbar */}
+      {/* Global Navigation Header */}
       <Navbar />
 
-      {/* Main Content Area */}
-      <main className="main-content">
-        {activeView === 'home' ? (
+      {/* Main Content Area Based on Active View */}
+      <main className="morae-main-container">
+        {/* VIEW 1: HOME PAGE */}
+        {activeView === 'home' && (
           <>
-            {/* Hero & Category Shortcuts */}
             <HeroBanner />
 
-            {/* Featured Bestsellers Section */}
-            <section className="featured-section">
-              <div className="section-header">
+            {/* Bestsellers Section */}
+            <section className="morae-showcase-section">
+              <div className="showcase-header">
                 <div>
-                  <div className="section-eyebrow">
-                    <Flame size={15} />
-                    <span>Customer Favorites</span>
-                  </div>
-                  <h2 className="section-title">Trending Bestsellers</h2>
+                  <span className="mono-subhead">[ ESSENTIAL RELEASES ]</span>
+                  <h2 className="showcase-title">
+                    Trending Hardware &amp; <span className="serif-italic-accent">Acoustics</span>
+                  </h2>
                 </div>
                 <button
-                  className="view-all-link"
+                  className="mono-view-all"
                   onClick={() => {
                     setSelectedCategory('All');
                     setActiveView('shop');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
                 >
-                  <span>Explore Catalog</span>
-                  <ArrowRight size={16} />
+                  <span>EXPLORE ALL ARCHIVES</span>
+                  <ArrowRight size={15} />
                 </button>
               </div>
 
-              <div className="featured-products-grid">
-                {featuredProducts.map((product) => (
+              <div className="morae-grid-4">
+                {bestsellers.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             </section>
 
-            {/* Editorial Showcase Banner */}
-            <section className="editorial-promo-banner">
-              <div className="editorial-content">
-                <span className="editorial-tag">Craftsmanship First</span>
-                <h2 className="editorial-heading">
-                  Designed Without Compromise. Engineered for Decades.
-                </h2>
-                <p className="editorial-text">
-                  We partner directly with bespoke artisans and certified factories around the globe to eliminate middlemen markups and offer studio-grade materials at honest prices.
-                </p>
-                <div className="editorial-stats">
-                  <div className="stat-box">
-                    <strong>100%</strong>
-                    <span>Fair-Trade Certified</span>
+            {/* Editorial Storytelling Banner */}
+            <section className="morae-editorial-section">
+              <div className="editorial-grid">
+                <div className="editorial-text-side">
+                  <span className="mono-subhead">[ THE MORAE MANIFESTO ]</span>
+                  <h2 className="editorial-title">
+                    Transparent glass. Bold color. <span className="serif-italic-accent">Pure experience.</span>
+                  </h2>
+                  <p className="editorial-lead">
+                    Sound is not just heard — it moves through you. It breathes, it glows, it becomes part of who you are. We construct physical objects that honor acoustic intention rather than commercial hype.
+                  </p>
+
+                  <div className="editorial-pillars-row">
+                    <div className="pillar-item">
+                      <span className="pillar-mono">[01]</span>
+                      <h4>Silence Shaped</h4>
+                      <p>Blocks environmental chaos without air pressure fatigue.</p>
+                    </div>
+                    <div className="pillar-item">
+                      <span className="pillar-mono">[02]</span>
+                      <h4>Adaptive Tuning</h4>
+                      <p>Continuously compensates for spatial acoustic acoustics.</p>
+                    </div>
                   </div>
-                  <div className="stat-box">
-                    <strong>4.9/5</strong>
-                    <span>Over 25,000+ Reviews</span>
-                  </div>
-                  <div className="stat-box">
-                    <strong>2 Years</strong>
-                    <span>Comprehensive Guarantee</span>
+
+                  <button
+                    className="btn btn-primary btn-lg"
+                    onClick={() => {
+                      setActiveView('about');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                  >
+                    <span>Read Full Philosophy</span>
+                    <ArrowRight size={17} />
+                  </button>
+                </div>
+
+                <div className="editorial-visual-side">
+                  <img
+                    src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80"
+                    alt="Acoustic Engineering"
+                  />
+                  <div className="visual-caption-tag">
+                    <span>® NO OFFICE. GLOBAL REACH.</span>
                   </div>
                 </div>
-                <button
-                  className="btn btn-primary btn-lg"
-                  onClick={() => {
-                    setSelectedCategory('All');
-                    setActiveView('shop');
-                  }}
-                >
-                  <span>Discover Full Collection</span>
-                  <ArrowRight size={18} />
-                </button>
-              </div>
-              <div className="editorial-image-side">
-                <img
-                  src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80"
-                  alt="Mechanical Keyboard Craftsmanship"
-                />
               </div>
             </section>
 
-            {/* New Arrivals Section */}
-            <section className="featured-section">
-              <div className="section-header">
+            {/* Fresh Drops Section */}
+            <section className="morae-showcase-section">
+              <div className="showcase-header">
                 <div>
-                  <div className="section-eyebrow">
-                    <Sparkles size={15} />
-                    <span>Fresh Drops</span>
-                  </div>
-                  <h2 className="section-title">New Releases &amp; Limited Runs</h2>
+                  <span className="mono-subhead">[ NEW DROPS ]</span>
+                  <h2 className="showcase-title">
+                    Limited Production &amp; <span className="serif-italic-accent">Fresh Arrivals</span>
+                  </h2>
                 </div>
                 <button
-                  className="view-all-link"
+                  className="mono-view-all"
                   onClick={() => {
                     setSelectedCategory('All');
                     setActiveView('shop');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
                 >
-                  <span>Shop All Items</span>
-                  <ArrowRight size={16} />
+                  <span>VIEW ALL ITEMS</span>
+                  <ArrowRight size={15} />
                 </button>
               </div>
 
-              <div className="featured-products-grid">
+              <div className="morae-grid-4">
                 {newArrivals.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             </section>
 
-            {/* Customer Testimonials Slider/Grid */}
-            <section className="testimonials-section">
-              <div className="section-header-centered">
-                <span className="section-eyebrow-center">Community Verified</span>
-                <h2 className="section-title">Loved by Thousands Worldwide</h2>
-                <p className="section-subtitle">Real feedback from verified purchasers</p>
+            {/* Testimonials */}
+            <section className="morae-testimonials-section">
+              <div className="testimonials-header">
+                <span className="mono-subhead">[ VERIFIED OBSERVATIONS ]</span>
+                <h2 className="showcase-title">
+                  Hear it from those who <span className="serif-italic-accent">listen deeply.</span>
+                </h2>
               </div>
 
-              <div className="testimonials-grid">
-                {testimonials.map((item) => (
-                  <div key={item.id} className="testimonial-card">
-                    <div className="testimonial-stars">
-                      {[...Array(item.rating)].map((_, i) => (
-                        <Star key={i} size={15} className="star-icon filled" />
-                      ))}
-                    </div>
-                    <p className="testimonial-quote">"{item.quote}"</p>
-                    <div className="testimonial-author-box">
-                      <img src={item.avatar} alt={item.author} className="author-avatar" />
-                      <div>
-                        <h4 className="author-name">{item.author}</h4>
-                        <span className="author-title">{item.title}</span>
-                      </div>
+              <div className="morae-testimonials-grid">
+                {testimonials.map((t) => (
+                  <div key={t.id} className="morae-quote-card">
+                    <p className="quote-body">"{t.quote}"</p>
+                    <div className="quote-author-line">
+                      <span className="author-name">— {t.author}</span>
+                      <span className="author-role">{t.title}, {t.location}</span>
                     </div>
                   </div>
                 ))}
               </div>
             </section>
           </>
-        ) : (
-          /* Shop Catalog View */
-          <div className="catalog-page-container">
+        )}
+
+        {/* VIEW 2: PRODUCT CATALOG PAGE */}
+        {activeView === 'shop' && (
+          <div className="shop-view-wrapper">
             <ProductGrid />
           </div>
         )}
+
+        {/* VIEW 3: PHILOSOPHY & ABOUT PAGE */}
+        {activeView === 'about' && (
+          <AboutView />
+        )}
+
+        {/* VIEW 4: CONTACT INQUIRIES PAGE */}
+        {activeView === 'contact' && (
+          <ContactView />
+        )}
       </main>
 
-      {/* Global Modals & Slide-out Drawers */}
+      {/* Global Modals & Drawers */}
       <ProductDetailsModal />
       <CartDrawer />
       <WishlistDrawer />
@@ -228,8 +237,8 @@ const MainApp = () => {
       {/* Footer */}
       <Footer />
 
-      {/* Mobile Bottom Quick Navigation Bar */}
-      <nav className="mobile-bottom-nav">
+      {/* Mobile Sticky Bottom Tab Bar */}
+      <nav className="morae-mobile-bottom-bar">
         <button
           className={`mobile-tab-btn ${activeView === 'home' ? 'active' : ''}`}
           onClick={() => {
@@ -237,7 +246,7 @@ const MainApp = () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
-          <Home size={20} />
+          <Home size={18} />
           <span>Home</span>
         </button>
 
@@ -248,32 +257,39 @@ const MainApp = () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
-          <Store size={20} />
+          <Store size={18} />
           <span>Catalog</span>
+        </button>
+
+        <button
+          className={`mobile-tab-btn ${activeView === 'about' ? 'active' : ''}`}
+          onClick={() => {
+            setActiveView('about');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        >
+          <Info size={18} />
+          <span>Philosophy</span>
         </button>
 
         <button
           className="mobile-tab-btn"
           onClick={() => setIsWishlistOpen(true)}
         >
-          <div className="mobile-tab-icon-wrap">
-            <Heart size={20} />
-            {wishlist.length > 0 && (
-              <span className="mobile-tab-badge">{wishlist.length}</span>
-            )}
+          <div className="tab-badge-wrap">
+            <Heart size={18} />
+            {wishlist.length > 0 && <span className="tab-dot-count">{wishlist.length}</span>}
           </div>
-          <span>Wishlist</span>
+          <span>Saved</span>
         </button>
 
         <button
           className="mobile-tab-btn"
           onClick={() => setIsCartOpen(true)}
         >
-          <div className="mobile-tab-icon-wrap">
-            <ShoppingBag size={20} />
-            {cartCount > 0 && (
-              <span className="mobile-tab-badge">{cartCount}</span>
-            )}
+          <div className="tab-badge-wrap">
+            <ShoppingBag size={18} />
+            {cartCount > 0 && <span className="tab-dot-count accent-dot">{cartCount}</span>}
           </div>
           <span>Bag</span>
         </button>

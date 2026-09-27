@@ -6,7 +6,7 @@ import {
   ShoppingBag,
   Check,
   Eye,
-  Sparkles
+  ArrowUpRight
 } from 'lucide-react';
 
 export const ProductCard = ({ product, viewMode = 'grid' }) => {
@@ -17,16 +17,14 @@ export const ProductCard = ({ product, viewMode = 'grid' }) => {
     setSelectedProduct
   } = useShop();
 
-  const [addedAnimation, setAddedAnimation] = useState(false);
+  const [added, setAdded] = useState(false);
   const isFavorited = isInWishlist(product.id);
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
     addToCart(product, 1);
-    setAddedAnimation(true);
-    setTimeout(() => {
-      setAddedAnimation(false);
-    }, 1500);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
   };
 
   const handleWishlistClick = (e) => {
@@ -38,121 +36,124 @@ export const ProductCard = ({ product, viewMode = 'grid' }) => {
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
 
+  const itemCode = `MR-${String(product.id).padStart(2, '0')}`;
+
   return (
     <div
-      className={`product-card ${viewMode === 'list' ? 'product-card-list' : ''}`}
+      className={`morae-product-card ${viewMode === 'list' ? 'card-list-mode' : ''}`}
       onClick={() => setSelectedProduct(product)}
       role="button"
       tabIndex={0}
-      aria-label={`View details for ${product.name}`}
+      aria-label={`View ${product.name}`}
     >
-      {/* Image Container */}
-      <div className="product-image-container">
+      {/* Top Header of Card */}
+      <div className="card-top-header">
+        <span className="card-item-code">[{itemCode}]</span>
+        <span className="card-cat-label">{product.category}</span>
+        <button
+          className={`card-wishlist-trigger ${isFavorited ? 'active' : ''}`}
+          onClick={handleWishlistClick}
+          aria-label={isFavorited ? 'Remove from saved' : 'Save item'}
+        >
+          <Heart size={16} fill={isFavorited ? '#fc721b' : 'none'} color={isFavorited ? '#fc721b' : '#777777'} />
+        </button>
+      </div>
+
+      {/* Image Area */}
+      <div className="card-img-wrapper">
         <img
           src={product.image}
           alt={product.name}
-          className="product-card-img"
+          className="card-product-img"
           loading="lazy"
         />
 
-        {/* Badges Overlay */}
-        <div className="card-badges">
+        {/* Badges */}
+        <div className="card-badge-cluster">
           {product.badge && (
-            <span className={`badge ${product.badge.toLowerCase().includes('sale') ? 'badge-sale' : 'badge-primary'}`}>
+            <span className={`morae-badge ${product.badge.toLowerCase().includes('sale') ? 'badge-sale' : 'badge-accent'}`}>
               {product.badge}
             </span>
           )}
           {discountPercent > 0 && !product.badge && (
-            <span className="badge badge-sale">-{discountPercent}%</span>
+            <span className="morae-badge badge-sale">-{discountPercent}%</span>
           )}
         </div>
 
-        {/* Wishlist Floating Button */}
-        <button
-          className={`wishlist-toggle-btn ${isFavorited ? 'is-active' : ''}`}
-          onClick={handleWishlistClick}
-          aria-label={isFavorited ? 'Remove from wishlist' : 'Add to wishlist'}
-          title={isFavorited ? 'Remove from wishlist' : 'Add to wishlist'}
-        >
-          <Heart size={18} fill={isFavorited ? '#ef4444' : 'none'} color={isFavorited ? '#ef4444' : '#64748b'} />
-        </button>
-
-        {/* Quick View Button overlay on hover */}
-        <div className="card-quick-actions">
-          <span className="quick-view-btn">
-            <Eye size={15} />
-            <span>Quick View</span>
+        {/* Hover Quick View Pill */}
+        <div className="card-hover-overlay">
+          <span className="hover-inspect-pill">
+            <Eye size={14} />
+            <span>QUICK INSPECT</span>
           </span>
         </div>
       </div>
 
-      {/* Content Container */}
-      <div className="product-card-info">
-        <div className="card-meta">
-          <span className="card-category">{product.category}</span>
-          <div className="card-rating">
-            <Star size={14} className="star-icon filled" />
-            <span className="rating-score">{product.rating}</span>
-            <span className="reviews-count">({product.reviewsCount})</span>
+      {/* Card Info Details */}
+      <div className="card-content-area">
+        <div className="card-rating-line">
+          <div className="stars-mini-row">
+            <Star size={13} className="star-fill" />
+            <span className="rating-val">{product.rating}</span>
           </div>
+          <span className="reviews-tally">({product.reviewsCount} reviews)</span>
         </div>
 
-        <h3 className="product-name" title={product.name}>
+        <h3 className="card-item-title" title={product.name}>
           {product.name}
         </h3>
 
         {viewMode === 'list' && (
-          <p className="product-list-description">{product.description}</p>
+          <p className="card-list-summary">{product.description}</p>
         )}
 
-        {/* Color Swatches Preview */}
+        {/* Color Swatch Dots */}
         {product.colors && product.colors.length > 0 && (
-          <div className="color-swatches-preview">
-            {product.colors.map((color, index) => (
+          <div className="card-colors-row">
+            {product.colors.map((hex, idx) => (
               <span
-                key={index}
-                className="color-swatch-dot"
-                style={{ backgroundColor: color }}
-                title={`Color option ${index + 1}`}
+                key={idx}
+                className="color-dot"
+                style={{ backgroundColor: hex }}
+                title={`Finish option ${idx + 1}`}
               />
             ))}
           </div>
         )}
 
-        {/* Price & Stock info */}
-        <div className="card-footer">
-          <div className="price-wrapper">
-            <span className="current-price">${product.price.toFixed(2)}</span>
+        {/* Footer: Price & Add Button */}
+        <div className="card-bottom-bar">
+          <div className="card-price-stack">
+            <span className="price-current">${product.price.toFixed(2)}</span>
             {product.originalPrice && (
-              <span className="original-price">${product.originalPrice.toFixed(2)}</span>
+              <span className="price-strikethrough">${product.originalPrice.toFixed(2)}</span>
             )}
           </div>
 
-          {/* Quick Add To Cart Button */}
           <button
-            className={`add-to-cart-btn ${addedAnimation ? 'added-state' : ''}`}
+            className={`btn-add-bag ${added ? 'added' : ''}`}
             onClick={handleAddToCart}
             disabled={!product.inStock}
-            aria-label={`Add ${product.name} to cart`}
+            aria-label={`Add ${product.name} to bag`}
           >
-            {addedAnimation ? (
+            {added ? (
               <>
-                <Check size={16} />
-                <span>Added</span>
+                <Check size={14} />
+                <span>ADDED</span>
               </>
             ) : (
               <>
-                <ShoppingBag size={16} />
-                <span>Add to Cart</span>
+                <ShoppingBag size={14} />
+                <span>+ BAG</span>
               </>
             )}
           </button>
         </div>
 
-        {/* Low Stock Warning */}
+        {/* Low inventory alert */}
         {product.inStock && product.stockCount <= 10 && (
-          <div className="low-stock-alert">
-            Only {product.stockCount} left in stock - order soon!
+          <div className="card-stock-warning">
+            LIMITED STOCK: {product.stockCount} UNITS REMAINING
           </div>
         )}
       </div>

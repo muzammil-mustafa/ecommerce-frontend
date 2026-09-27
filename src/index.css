@@ -1,63 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Color Palette */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8fafc;
-  --bg-tertiary: #f1f5f9;
-  --bg-card: #ffffff;
+  /* MORAE® Dark Minimalist Design Tokens */
+  --bg-canvas: #070707;
+  --bg-primary: #0a0a0a;
+  --bg-surface: #121212;
+  --bg-card: #151515;
+  --bg-card-hover: #1c1c1c;
+  --bg-input: #111111;
   
-  --text-main: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
-  --text-light: #94a3b8;
+  --text-main: #f5f5f5;
+  --text-secondary: #c0c0c0;
+  --text-muted: #828282;
+  --text-dim: #4a4a4a;
   
-  --primary: #0f172a;
-  --primary-hover: #1e293b;
-  --primary-active: #020617;
+  /* MORAE Signature Accent: International Bright Orange */
+  --accent: #fc721b;
+  --accent-hover: #ff8539;
+  --accent-glow: rgba(252, 114, 27, 0.25);
+  --accent-subtle: rgba(252, 114, 27, 0.12);
   
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --accent-light: #eff6ff;
+  /* Crimson Secondary Accent */
+  --crimson: #cf1b42;
+  --crimson-subtle: rgba(207, 27, 66, 0.15);
   
   --success: #10b981;
-  --success-bg: #ecfdf5;
-  --success-border: #a7f3d0;
+  --success-subtle: rgba(16, 185, 129, 0.15);
   
-  --danger: #ef4444;
-  --danger-bg: #fef2f2;
-  --danger-border: #fecaca;
-  
-  --warning: #f59e0b;
-  --warning-bg: #fffbeb;
-  
-  --border-light: #e2e8f0;
-  --border-medium: #cbd5e1;
-  --border-focus: #94a3b8;
+  /* Borders */
+  --border-subtle: #1e1e1e;
+  --border-medium: #2a2a2a;
+  --border-active: #404040;
+  --border-accent: rgba(252, 114, 27, 0.45);
 
   /* Elevation Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-  --shadow-card: 0 2px 8px -2px rgba(15, 23, 42, 0.08), 0 1px 4px -1px rgba(15, 23, 42, 0.04);
-  --shadow-card-hover: 0 12px 24px -4px rgba(15, 23, 42, 0.12), 0 4px 8px -2px rgba(15, 23, 42, 0.06);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.7);
+  --shadow-card-hover: 0 12px 35px rgba(0, 0, 0, 0.85);
+  --shadow-modal: 0 25px 60px -10px rgba(0, 0, 0, 0.95);
+  --shadow-accent: 0 0 25px rgba(252, 114, 27, 0.35);
 
-  /* Radius */
+  /* Radii - Subtle & Architectural */
+  --radius-xs: 4px;
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
-  --radius-xl: 24px;
   --radius-full: 9999px;
 
-  /* Transitions */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* Typography Stack */
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'Space Mono', 'Fragment Mono', monospace;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', 'Inter', sans-serif;
 
-  /* Font Families */
-  --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Transitions */
+  --transition-fast: 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 280ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Reset & Base */
@@ -72,22 +70,41 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-canvas);
+  color: var(--text-main);
 }
 
 body {
-  font-family: var(--font-body);
-  background-color: var(--bg-secondary);
+  font-family: var(--font-sans);
+  background-color: var(--bg-canvas);
   color: var(--text-main);
-  line-height: 1.5;
+  line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #252525;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   color: var(--text-main);
+  line-height: 1.15;
   font-weight: 700;
-  line-height: 1.25;
+  letter-spacing: -0.02em;
 }
 
 button {
@@ -100,8 +117,10 @@ button {
 
 input, select, textarea {
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--text-main);
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-medium);
 }
 
 a {
@@ -115,7 +134,6 @@ img {
   display: block;
 }
 
-/* Screen reader utility */
 .sr-only {
   position: absolute;
   width: 1px;

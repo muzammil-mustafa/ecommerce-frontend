@@ -9,8 +9,6 @@ import {
   ArrowRight,
   ArrowLeft,
   ShieldCheck,
-  ShoppingBag,
-  Sparkles,
   DollarSign
 } from 'lucide-react';
 
@@ -21,7 +19,6 @@ export const CheckoutModal = () => {
     cart,
     cartSubtotal,
     discountAmount,
-    discountedSubtotal,
     shippingCost,
     tax,
     cartTotal,
@@ -32,17 +29,15 @@ export const CheckoutModal = () => {
 
   if (!isCheckoutOpen) return null;
 
-  // Checkout Steps: 1: Shipping, 2: Payment, 3: Success
   const [step, setStep] = useState(1);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [confirmedOrder, setConfirmedOrder] = useState(null);
+  const [processing, setProcessing] = useState(false);
+  const [confirmed, setConfirmed] = useState(null);
 
-  // Form Fields
-  const [shippingData, setShippingData] = useState({
+  const [shipping, setShipping] = useState({
     firstName: 'Marcus',
     lastName: 'Vance',
     email: 'marcus.vance@example.com',
-    phone: '+1 (555) 234-5678',
+    phone: '+1 (555) 019-4820',
     address: '742 Evergreen Terrace',
     city: 'Seattle',
     state: 'WA',
@@ -50,20 +45,13 @@ export const CheckoutModal = () => {
     country: 'United States'
   });
 
-  const [paymentData, setPaymentData] = useState({
-    method: 'card', // 'card', 'paypal', 'cod'
+  const [payment, setPayment] = useState({
+    method: 'card',
     cardNumber: '4242 •••• •••• 4242',
     cardName: 'MARCUS VANCE',
     expiry: '12/28',
     cvv: '789'
   });
-
-  const handleShippingChange = (e) => {
-    setShippingData({
-      ...shippingData,
-      [e.target.name]: e.target.value
-    });
-  };
 
   const handleShippingSubmit = (e) => {
     e.preventDefault();
@@ -72,18 +60,18 @@ export const CheckoutModal = () => {
 
   const handlePlaceOrder = (e) => {
     e.preventDefault();
-    setIsProcessing(true);
+    setProcessing(true);
 
     setTimeout(() => {
       const order = placeOrder({
-        shipping: shippingData,
+        shipping,
         payment: {
-          method: paymentData.method,
-          lastFour: paymentData.method === 'card' ? '4242' : 'N/A'
+          method: payment.method,
+          lastFour: payment.method === 'card' ? '4242' : 'N/A'
         }
       });
-      setConfirmedOrder(order);
-      setIsProcessing(false);
+      setConfirmed(order);
+      setProcessing(false);
       setStep(3);
     }, 1800);
   };
@@ -91,401 +79,363 @@ export const CheckoutModal = () => {
   const handleClose = () => {
     setIsCheckoutOpen(false);
     setStep(1);
-    setConfirmedOrder(null);
+    setConfirmed(null);
   };
 
-  const handleOrderDone = () => {
+  const handleCompleteDone = () => {
     handleClose();
     setActiveView('shop');
   };
 
   return (
-    <div className="modal-backdrop checkout-modal-backdrop" onClick={handleClose}>
+    <div className="modal-backdrop" onClick={handleClose}>
       <div
-        className="checkout-modal-dialog"
+        className="morae-checkout-dialog"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-label="Secure Checkout"
       >
         {/* Header */}
-        <div className="checkout-modal-header">
-          <div className="checkout-brand">
-            <Lock size={18} className="lock-icon" />
-            <h3>Secure Checkout</h3>
+        <div className="checkout-top-header">
+          <div className="checkout-brand-title">
+            <Lock size={16} className="lock-accent" />
+            <span className="mono-title">MORAE® / SECURE ORDER DISPATCH</span>
           </div>
 
           {step < 3 && (
-            <div className="checkout-step-indicator">
-              <span className={`step-dot ${step === 1 ? 'active' : 'done'}`}>1. Shipping</span>
-              <span className="step-separator">›</span>
-              <span className={`step-dot ${step === 2 ? 'active' : ''}`}>2. Payment &amp; Review</span>
+            <div className="checkout-steps-tracker">
+              <span className={`step-tag ${step === 1 ? 'active' : 'done'}`}>[ 01 SHIPPING ]</span>
+              <span className="step-div">›</span>
+              <span className={`step-tag ${step === 2 ? 'active' : ''}`}>[ 02 PAYMENT ]</span>
             </div>
           )}
 
-          <button className="modal-close-btn" onClick={handleClose} aria-label="Close checkout">
-            <X size={20} />
+          <button className="morae-modal-close" onClick={handleClose} aria-label="Close checkout">
+            <X size={18} />
           </button>
         </div>
 
-        {/* Modal Body */}
-        <div className="checkout-modal-body">
-          {step === 3 && confirmedOrder ? (
-            /* Step 3: Success Confirmation Screen */
-            <div className="checkout-success-view">
-              <div className="success-icon-wrap">
-                <CheckCircle2 size={64} />
+        {/* Body */}
+        <div className="checkout-dialog-body">
+          {step === 3 && confirmed ? (
+            /* Step 3: Success Screen */
+            <div className="checkout-receipt-view">
+              <div className="receipt-orb">
+                <CheckCircle2 size={54} />
               </div>
-              <h2 className="success-title">Order Confirmed!</h2>
-              <p className="success-subtitle">
-                Thank you for your purchase, <strong>{shippingData.firstName}</strong>. We've sent an order confirmation and tracking details to <code>{shippingData.email}</code>.
+              <h2 className="receipt-title">ORDER DISPATCH CONFIRMED</h2>
+              <p className="receipt-lead">
+                Thank you, <strong>{shipping.firstName}</strong>. Your order has entered our fulfillment queue. An automated tracking receipt has been dispatched to <code>{shipping.email}</code>.
               </p>
 
-              <div className="order-receipt-card">
-                <div className="receipt-row">
-                  <span>Order Reference</span>
-                  <strong className="receipt-highlight">{confirmedOrder.orderId}</strong>
+              <div className="receipt-data-card">
+                <div className="data-row">
+                  <span className="data-label">[ ORDER REFERENCE ]</span>
+                  <strong className="data-ref">{confirmed.orderId}</strong>
                 </div>
-                <div className="receipt-row">
-                  <span>Estimated Delivery</span>
-                  <strong>3 - 5 Business Days (Standard Ground)</strong>
+                <div className="data-row">
+                  <span className="data-label">[ ESTIMATED COURIER ARRIVAL ]</span>
+                  <span>3 – 5 Business Days (Tracked Air)</span>
                 </div>
-                <div className="receipt-row">
-                  <span>Shipping Address</span>
-                  <span>{shippingData.address}, {shippingData.city}, {shippingData.zipCode}</span>
+                <div className="data-row">
+                  <span className="data-label">[ DESTINATION ]</span>
+                  <span>{shipping.address}, {shipping.city}, {shipping.zipCode}</span>
                 </div>
-                <div className="receipt-row">
-                  <span>Payment Status</span>
-                  <span className="badge badge-success">Paid via {paymentData.method.toUpperCase()}</span>
+                <div className="data-row">
+                  <span className="data-label">[ SETTLEMENT ]</span>
+                  <span className="receipt-badge">PAID VIA {payment.method.toUpperCase()}</span>
                 </div>
-                <div className="receipt-row receipt-total">
-                  <span>Total Amount Paid</span>
-                  <strong>${confirmedOrder.total.toFixed(2)}</strong>
+                <div className="data-row receipt-grand-line">
+                  <span className="data-label">[ TOTAL SETTLED ]</span>
+                  <strong>${confirmed.total.toFixed(2)}</strong>
                 </div>
               </div>
 
-              <div className="success-actions">
-                <button className="btn btn-primary btn-lg" onClick={handleOrderDone}>
-                  <span>Continue Shopping</span>
-                  <ArrowRight size={18} />
-                </button>
-              </div>
+              <button className="btn btn-primary btn-lg" onClick={handleCompleteDone}>
+                <span>Return to Catalog</span>
+                <ArrowRight size={17} />
+              </button>
             </div>
           ) : (
-            /* Steps 1 & 2: Checkout Grid (Forms + Summary) */
-            <div className="checkout-layout-grid">
-              {/* Left Column: Forms */}
-              <div className="checkout-form-column">
+            /* Steps 1 & 2 */
+            <div className="checkout-two-col-grid">
+              {/* Form Col */}
+              <div className="checkout-form-pane">
                 {step === 1 && (
-                  /* Step 1: Shipping Form */
-                  <form onSubmit={handleShippingSubmit} className="checkout-step-form">
-                    <h4 className="form-section-title">
-                      <Truck size={18} />
-                      <span>Shipping Address</span>
-                    </h4>
+                  <form onSubmit={handleShippingSubmit} className="checkout-form">
+                    <span className="mono-subhead">[ SHIPPING RECIPIENT &amp; ADDRESS ]</span>
 
-                    <div className="form-row-2">
+                    <div className="grid-2-cols">
                       <div className="form-group">
-                        <label>First Name</label>
+                        <label>[ FIRST NAME ]</label>
                         <input
                           type="text"
-                          name="firstName"
                           required
-                          value={shippingData.firstName}
-                          onChange={handleShippingChange}
+                          value={shipping.firstName}
+                          onChange={(e) => setShipping({ ...shipping, firstName: e.target.value })}
                         />
                       </div>
                       <div className="form-group">
-                        <label>Last Name</label>
+                        <label>[ LAST NAME ]</label>
                         <input
                           type="text"
-                          name="lastName"
                           required
-                          value={shippingData.lastName}
-                          onChange={handleShippingChange}
+                          value={shipping.lastName}
+                          onChange={(e) => setShipping({ ...shipping, lastName: e.target.value })}
                         />
                       </div>
                     </div>
 
-                    <div className="form-row-2">
+                    <div className="grid-2-cols">
                       <div className="form-group">
-                        <label>Email Address</label>
+                        <label>[ EMAIL ADDRESS ]</label>
                         <input
                           type="email"
-                          name="email"
                           required
-                          value={shippingData.email}
-                          onChange={handleShippingChange}
+                          value={shipping.email}
+                          onChange={(e) => setShipping({ ...shipping, email: e.target.value })}
                         />
                       </div>
                       <div className="form-group">
-                        <label>Phone Number</label>
+                        <label>[ TELEPHONE ]</label>
                         <input
                           type="tel"
-                          name="phone"
                           required
-                          value={shippingData.phone}
-                          onChange={handleShippingChange}
+                          value={shipping.phone}
+                          onChange={(e) => setShipping({ ...shipping, phone: e.target.value })}
                         />
                       </div>
                     </div>
 
                     <div className="form-group">
-                      <label>Street Address</label>
+                      <label>[ STREET ADDRESS ]</label>
                       <input
                         type="text"
-                        name="address"
                         required
-                        placeholder="Street number and street name"
-                        value={shippingData.address}
-                        onChange={handleShippingChange}
+                        value={shipping.address}
+                        onChange={(e) => setShipping({ ...shipping, address: e.target.value })}
                       />
                     </div>
 
-                    <div className="form-row-3">
+                    <div className="grid-3-cols">
                       <div className="form-group">
-                        <label>City</label>
+                        <label>[ CITY ]</label>
                         <input
                           type="text"
-                          name="city"
                           required
-                          value={shippingData.city}
-                          onChange={handleShippingChange}
+                          value={shipping.city}
+                          onChange={(e) => setShipping({ ...shipping, city: e.target.value })}
                         />
                       </div>
                       <div className="form-group">
-                        <label>State / Province</label>
+                        <label>[ STATE / PROV ]</label>
                         <input
                           type="text"
-                          name="state"
                           required
-                          value={shippingData.state}
-                          onChange={handleShippingChange}
+                          value={shipping.state}
+                          onChange={(e) => setShipping({ ...shipping, state: e.target.value })}
                         />
                       </div>
                       <div className="form-group">
-                        <label>Postal Code</label>
+                        <label>[ POSTAL CODE ]</label>
                         <input
                           type="text"
-                          name="zipCode"
                           required
-                          value={shippingData.zipCode}
-                          onChange={handleShippingChange}
+                          value={shipping.zipCode}
+                          onChange={(e) => setShipping({ ...shipping, zipCode: e.target.value })}
                         />
                       </div>
                     </div>
 
                     <div className="form-group">
-                      <label>Country</label>
+                      <label>[ REGION / COUNTRY ]</label>
                       <select
-                        name="country"
-                        value={shippingData.country}
-                        onChange={handleShippingChange}
+                        value={shipping.country}
+                        onChange={(e) => setShipping({ ...shipping, country: e.target.value })}
                       >
                         <option value="United States">United States</option>
                         <option value="United Kingdom">United Kingdom</option>
                         <option value="Canada">Canada</option>
                         <option value="Australia">Australia</option>
                         <option value="Germany">Germany</option>
+                        <option value="Japan">Japan</option>
                         <option value="Pakistan">Pakistan</option>
                       </select>
                     </div>
 
-                    <div className="form-actions-row">
-                      <button type="submit" className="btn btn-primary btn-lg btn-block">
-                        <span>Continue to Payment</span>
-                        <ArrowRight size={18} />
-                      </button>
-                    </div>
+                    <button type="submit" className="btn btn-primary btn-lg btn-block">
+                      <span>Continue to Payment</span>
+                      <ArrowRight size={17} />
+                    </button>
                   </form>
                 )}
 
                 {step === 2 && (
-                  /* Step 2: Payment Form */
-                  <form onSubmit={handlePlaceOrder} className="checkout-step-form">
-                    <div className="step-back-row">
-                      <button
-                        type="button"
-                        className="btn-back-link"
-                        onClick={() => setStep(1)}
-                      >
-                        <ArrowLeft size={16} />
-                        <span>Edit Shipping Details</span>
-                      </button>
-                    </div>
+                  <form onSubmit={handlePlaceOrder} className="checkout-form">
+                    <button
+                      type="button"
+                      className="back-step-btn"
+                      onClick={() => setStep(1)}
+                    >
+                      <ArrowLeft size={15} />
+                      <span>Back to Shipping</span>
+                    </button>
 
-                    <h4 className="form-section-title">
-                      <CreditCard size={18} />
-                      <span>Payment Method</span>
-                    </h4>
+                    <span className="mono-subhead">[ SETTLEMENT METHOD ]</span>
 
-                    {/* Payment Method Selector */}
-                    <div className="payment-options-grid">
-                      <label className={`payment-option-card ${paymentData.method === 'card' ? 'selected' : ''}`}>
+                    <div className="payment-type-cards">
+                      <label className={`morae-pay-card ${payment.method === 'card' ? 'selected' : ''}`}>
                         <input
                           type="radio"
-                          name="paymentMethod"
+                          name="payMethod"
                           value="card"
-                          checked={paymentData.method === 'card'}
-                          onChange={() => setPaymentData({ ...paymentData, method: 'card' })}
+                          checked={payment.method === 'card'}
+                          onChange={() => setPayment({ ...payment, method: 'card' })}
                         />
-                        <CreditCard size={20} />
+                        <CreditCard size={18} />
                         <span>Credit / Debit Card</span>
                       </label>
 
-                      <label className={`payment-option-card ${paymentData.method === 'paypal' ? 'selected' : ''}`}>
+                      <label className={`morae-pay-card ${payment.method === 'paypal' ? 'selected' : ''}`}>
                         <input
                           type="radio"
-                          name="paymentMethod"
+                          name="payMethod"
                           value="paypal"
-                          checked={paymentData.method === 'paypal'}
-                          onChange={() => setPaymentData({ ...paymentData, method: 'paypal' })}
+                          checked={payment.method === 'paypal'}
+                          onChange={() => setPayment({ ...payment, method: 'paypal' })}
                         />
-                        <DollarSign size={20} />
+                        <DollarSign size={18} />
                         <span>PayPal Express</span>
                       </label>
 
-                      <label className={`payment-option-card ${paymentData.method === 'cod' ? 'selected' : ''}`}>
+                      <label className={`morae-pay-card ${payment.method === 'cod' ? 'selected' : ''}`}>
                         <input
                           type="radio"
-                          name="paymentMethod"
+                          name="payMethod"
                           value="cod"
-                          checked={paymentData.method === 'cod'}
-                          onChange={() => setPaymentData({ ...paymentData, method: 'cod' })}
+                          checked={payment.method === 'cod'}
+                          onChange={() => setPayment({ ...payment, method: 'cod' })}
                         />
-                        <Truck size={20} />
-                        <span>Cash on Delivery</span>
+                        <Truck size={18} />
+                        <span>Cash On Physical Delivery</span>
                       </label>
                     </div>
 
-                    {paymentData.method === 'card' && (
-                      <div className="card-input-fields">
+                    {payment.method === 'card' && (
+                      <div className="card-input-box">
                         <div className="form-group">
-                          <label>Cardholder Name</label>
+                          <label>[ CARDHOLDER NAME ]</label>
                           <input
                             type="text"
                             required
-                            value={paymentData.cardName}
-                            onChange={(e) => setPaymentData({ ...paymentData, cardName: e.target.value })}
+                            value={payment.cardName}
+                            onChange={(e) => setPayment({ ...payment, cardName: e.target.value })}
                           />
                         </div>
 
                         <div className="form-group">
-                          <label>Card Number</label>
+                          <label>[ CARD NUMBER ]</label>
                           <input
                             type="text"
                             required
                             placeholder="4242 4242 4242 4242"
-                            value={paymentData.cardNumber}
-                            onChange={(e) => setPaymentData({ ...paymentData, cardNumber: e.target.value })}
+                            value={payment.cardNumber}
+                            onChange={(e) => setPayment({ ...payment, cardNumber: e.target.value })}
                           />
                         </div>
 
-                        <div className="form-row-2">
+                        <div className="grid-2-cols">
                           <div className="form-group">
-                            <label>Expiry Date</label>
+                            <label>[ EXPIRY (MM/YY) ]</label>
                             <input
                               type="text"
                               required
-                              placeholder="MM/YY"
-                              value={paymentData.expiry}
-                              onChange={(e) => setPaymentData({ ...paymentData, expiry: e.target.value })}
+                              placeholder="12/28"
+                              value={payment.expiry}
+                              onChange={(e) => setPayment({ ...payment, expiry: e.target.value })}
                             />
                           </div>
                           <div className="form-group">
-                            <label>Security Code (CVV)</label>
+                            <label>[ CVV SECURITY CODE ]</label>
                             <input
                               type="password"
                               required
                               maxLength="4"
-                              placeholder="123"
-                              value={paymentData.cvv}
-                              onChange={(e) => setPaymentData({ ...paymentData, cvv: e.target.value })}
+                              placeholder="789"
+                              value={payment.cvv}
+                              onChange={(e) => setPayment({ ...payment, cvv: e.target.value })}
                             />
                           </div>
                         </div>
                       </div>
                     )}
 
-                    {paymentData.method === 'paypal' && (
-                      <div className="payment-note-box">
-                        <p>You will be redirected to PayPal to complete your secure payment after clicking "Complete Order".</p>
-                      </div>
-                    )}
+                    <button
+                      type="submit"
+                      className="btn btn-primary btn-lg btn-block"
+                      disabled={processing}
+                    >
+                      {processing ? (
+                        <span>AUTHORIZING PAYMENT...</span>
+                      ) : (
+                        <>
+                          <Lock size={16} />
+                          <span>AUTHORIZE &amp; PLACE ORDER — ${cartTotal.toFixed(2)}</span>
+                        </>
+                      )}
+                    </button>
 
-                    {paymentData.method === 'cod' && (
-                      <div className="payment-note-box">
-                        <p>Pay with cash upon physical delivery. Please have exact change ready.</p>
-                      </div>
-                    )}
-
-                    <div className="form-actions-row">
-                      <button
-                        type="submit"
-                        className="btn btn-primary btn-lg btn-block"
-                        disabled={isProcessing}
-                      >
-                        {isProcessing ? (
-                          <span>Authorizing Payment...</span>
-                        ) : (
-                          <>
-                            <Lock size={18} />
-                            <span>Complete Order - ${cartTotal.toFixed(2)}</span>
-                          </>
-                        )}
-                      </button>
-                    </div>
-
-                    <div className="security-assurances">
-                      <ShieldCheck size={16} />
-                      <span>256-Bit Bank Level Encryption Guarantee</span>
+                    <div className="security-guarantee-note">
+                      <ShieldCheck size={14} />
+                      <span>256-Bit Financial Encryption Active</span>
                     </div>
                   </form>
                 )}
               </div>
 
-              {/* Right Column: Order Summary */}
-              <div className="checkout-summary-column">
-                <div className="summary-card">
-                  <h4 className="summary-title">Order Summary ({cart.length} items)</h4>
+              {/* Order Summary Pane */}
+              <div className="checkout-summary-pane">
+                <div className="summary-inner-box">
+                  <span className="mono-subhead">[ ORDER OVERVIEW ({cart.length}) ]</span>
 
-                  <div className="summary-items-scroll">
+                  <div className="summary-items-list">
                     {cart.map((item) => (
-                      <div key={`${item.id}-${item.selectedColor || 'def'}`} className="summary-item-row">
-                        <img src={item.image} alt={item.name} className="summary-item-img" />
-                        <div className="summary-item-details">
-                          <span className="summary-name">{item.name}</span>
-                          <span className="summary-qty">Qty: {item.quantity}</span>
+                      <div key={`${item.id}-${item.selectedColor || 'def'}`} className="summary-row-item">
+                        <img src={item.image} alt={item.name} className="summary-img" />
+                        <div className="summary-item-text">
+                          <span className="s-name">{item.name}</span>
+                          <span className="s-qty">QTY: {item.quantity}</span>
                         </div>
-                        <span className="summary-price">${(item.price * item.quantity).toFixed(2)}</span>
+                        <span className="s-price">${(item.price * item.quantity).toFixed(2)}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="summary-breakdown">
-                    <div className="breakdown-line">
+                  <div className="summary-calc-rows">
+                    <div className="calc-line">
                       <span>Subtotal</span>
                       <span>${cartSubtotal.toFixed(2)}</span>
                     </div>
 
                     {discountAmount > 0 && (
-                      <div className="breakdown-line discount">
-                        <span>Coupon Discount ({appliedCoupon})</span>
+                      <div className="calc-line discount">
+                        <span>Voucher ({appliedCoupon})</span>
                         <span>-${discountAmount.toFixed(2)}</span>
                       </div>
                     )}
 
-                    <div className="breakdown-line">
-                      <span>Shipping</span>
-                      <span>{shippingCost === 0 ? 'FREE' : `$${shippingCost.toFixed(2)}`}</span>
+                    <div className="calc-line">
+                      <span>Courier Dispatch</span>
+                      <span>{shippingCost === 0 ? 'COMPLIMENTARY' : `$${shippingCost.toFixed(2)}`}</span>
                     </div>
 
-                    <div className="breakdown-line">
-                      <span>Estimated Tax</span>
+                    <div className="calc-line">
+                      <span>Sales Tax (8%)</span>
                       <span>${tax.toFixed(2)}</span>
                     </div>
 
-                    <div className="breakdown-line grand-total">
+                    <div className="calc-line grand-total-line">
                       <span>Total</span>
                       <span>${cartTotal.toFixed(2)}</span>
                     </div>

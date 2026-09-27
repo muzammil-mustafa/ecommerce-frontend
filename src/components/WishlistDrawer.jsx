@@ -5,8 +5,7 @@ import {
   Heart,
   ShoppingBag,
   Trash2,
-  ArrowRight,
-  Sparkles
+  ArrowRight
 } from 'lucide-react';
 
 export const WishlistDrawer = () => {
@@ -22,14 +21,14 @@ export const WishlistDrawer = () => {
 
   if (!isWishlistOpen) return null;
 
-  const handleMoveAllToCart = () => {
+  const handleMoveAll = () => {
     wishlist.forEach((item) => {
       addToCart(item, 1);
       removeFromWishlist(item.id);
     });
   };
 
-  const handleStartBrowsing = () => {
+  const handleBrowse = () => {
     setIsWishlistOpen(false);
     setActiveView('shop');
   };
@@ -37,70 +36,69 @@ export const WishlistDrawer = () => {
   return (
     <div className="drawer-overlay" onClick={() => setIsWishlistOpen(false)}>
       <div
-        className="drawer-panel wishlist-drawer-panel"
+        className="morae-drawer-panel"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
-        aria-label="Wishlist"
+        aria-label="Wishlist Archive"
       >
         {/* Header */}
-        <div className="drawer-header">
-          <div className="drawer-title-wrap">
-            <Heart size={20} className="wishlist-header-heart" />
-            <h3>Your Saved Wishlist</h3>
-            <span className="drawer-count-badge">({wishlist.length})</span>
+        <div className="drawer-top-bar">
+          <div className="drawer-title-group">
+            <span className="drawer-tag">[ SAVED RELEASES ]</span>
+            <h3 className="drawer-heading">Wishlist ({wishlist.length})</h3>
           </div>
           <button
             className="drawer-close-btn"
             onClick={() => setIsWishlistOpen(false)}
             aria-label="Close wishlist"
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 
         {/* Body */}
-        <div className="drawer-body">
+        <div className="drawer-scroll-body">
           {wishlist.length === 0 ? (
-            <div className="drawer-empty-state">
-              <div className="empty-cart-icon">
-                <Heart size={56} />
+            <div className="drawer-empty-view">
+              <div className="empty-cart-orb">
+                <Heart size={48} className="empty-heart-icon" />
               </div>
-              <h4>Your wishlist is empty</h4>
-              <p>Tap the heart icon on any product to save your favorite picks for later.</p>
-              <button className="btn btn-primary" onClick={handleStartBrowsing}>
-                <span>Browse Products</span>
+              <h4>No items saved in wishlist</h4>
+              <p>Save items from the catalog to curate your personal hardware shortlist.</p>
+              <button className="btn btn-primary" onClick={handleBrowse}>
+                <span>Browse Catalog</span>
                 <ArrowRight size={16} />
               </button>
             </div>
           ) : (
-            <div className="wishlist-items-list">
+            <div className="wishlist-products-list">
               {wishlist.map((item) => (
-                <div key={item.id} className="wishlist-item-card">
-                  <img src={item.image} alt={item.name} className="wishlist-item-img" />
+                <div key={item.id} className="morae-wishlist-tile">
+                  <img src={item.image} alt={item.name} className="wishlist-thumb" />
 
-                  <div className="wishlist-item-info">
-                    <span className="wishlist-item-category">{item.category}</span>
-                    <h4 className="wishlist-item-name">{item.name}</h4>
-                    <span className="wishlist-item-price">${item.price.toFixed(2)}</span>
+                  <div className="wishlist-info-col">
+                    <span className="mono-code">MR-{String(item.id).padStart(2, '0')}</span>
+                    <h4 className="wishlist-name">{item.name}</h4>
+                    <span className="wishlist-price">${item.price.toFixed(2)}</span>
 
-                    <div className="wishlist-item-actions">
+                    <div className="wishlist-actions-row">
                       <button
-                        className="btn btn-sm btn-primary"
+                        className="btn btn-primary btn-sm"
                         onClick={() => moveWishlistToCart(item)}
                         disabled={!item.inStock}
                       >
-                        <ShoppingBag size={14} />
+                        <ShoppingBag size={13} />
                         <span>Move to Bag</span>
                       </button>
 
                       <button
-                        className="btn-icon-danger"
+                        className="btn-trash-outline"
                         onClick={() => removeFromWishlist(item.id)}
-                        title="Remove from wishlist"
+                        title="Remove item"
                         aria-label="Remove item"
                       >
-                        <Trash2 size={16} />
+                        <Trash2 size={15} />
                       </button>
                     </div>
                   </div>
@@ -112,17 +110,17 @@ export const WishlistDrawer = () => {
 
         {/* Footer */}
         {wishlist.length > 0 && (
-          <div className="drawer-footer">
+          <div className="drawer-bottom-panel">
             <button
               className="btn btn-primary btn-block btn-lg"
-              onClick={handleMoveAllToCart}
+              onClick={handleMoveAll}
             >
-              <ShoppingBag size={18} />
+              <ShoppingBag size={17} />
               <span>Move All to Shopping Bag</span>
             </button>
-            <div className="drawer-sub-actions">
-              <button className="btn-text-link" onClick={handleStartBrowsing}>
-                Continue Shopping
+            <div className="drawer-secondary-links">
+              <button className="text-link" onClick={handleBrowse}>
+                Continue Browsing
               </button>
             </div>
           </div>

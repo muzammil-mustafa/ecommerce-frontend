@@ -6,10 +6,7 @@ import {
   Search,
   X,
   Menu,
-  Sparkles,
-  SlidersHorizontal,
-  Home,
-  Store
+  ArrowUpRight
 } from 'lucide-react';
 
 export const Navbar = () => {
@@ -26,7 +23,7 @@ export const Navbar = () => {
   } = useShop();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileSearchVisible, setMobileSearchVisible] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -35,39 +32,36 @@ export const Navbar = () => {
     }
   };
 
-  const handleClearSearch = () => {
-    setSearchQuery('');
-  };
-
   const handleNavigate = (view, category = null) => {
     setActiveView(view);
     if (category) {
       setSelectedCategory(category);
     }
     setMobileMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <header className="navbar-header">
-      {/* Top Announcement Bar */}
+      {/* Top Ticker Announcement */}
       <div className="announcement-bar">
         <div className="announcement-content">
-          <span>
-            ✨ <strong>LIMITED TIME:</strong> Use coupon <code>SAVE15</code> for 15% off orders over $50! Free worldwide shipping on orders $75+
+          <span className="mono-ticker-item">
+            ® NO OFFICE. GLOBAL REACH. &nbsp;///&nbsp; USE CODE <strong className="accent-orange-text">SAVE15</strong> FOR 15% OFF &nbsp;///&nbsp; COMPLIMENTARY COURIER SHIPPING OVER $75
           </span>
         </div>
       </div>
 
-      {/* Main Navigation Bar */}
+      {/* Main Navbar */}
       <div className="nav-container">
-        {/* Left: Mobile Menu Trigger + Logo */}
+        {/* Left: Brand Logo */}
         <div className="nav-left">
           <button
             className="mobile-menu-trigger"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle navigation menu"
+            aria-label="Toggle navigation"
           >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
 
           <div
@@ -76,12 +70,8 @@ export const Navbar = () => {
             role="button"
             tabIndex={0}
           >
-            <div className="logo-icon-wrapper">
-              <Sparkles className="logo-sparkle" size={20} />
-            </div>
-            <span className="logo-text">
-              Aura<span className="logo-accent">Store</span>
-            </span>
+            <span className="brand-dot" />
+            <span className="logo-text">MORAE<sup>®</sup></span>
           </div>
 
           <nav className="desktop-nav-links">
@@ -89,128 +79,92 @@ export const Navbar = () => {
               className={`nav-link ${activeView === 'home' ? 'active' : ''}`}
               onClick={() => handleNavigate('home')}
             >
-              Home
+              [ 01 ] HOME
             </button>
             <button
               className={`nav-link ${activeView === 'shop' ? 'active' : ''}`}
               onClick={() => handleNavigate('shop')}
             >
-              Shop All
+              [ 02 ] CATALOG
             </button>
             <button
-              className="nav-link"
-              onClick={() => handleNavigate('shop', 'Electronics')}
+              className={`nav-link ${activeView === 'about' ? 'active' : ''}`}
+              onClick={() => handleNavigate('about')}
             >
-              Electronics
+              [ 03 ] PHILOSOPHY
             </button>
             <button
-              className="nav-link"
-              onClick={() => handleNavigate('shop', 'Fashion')}
+              className={`nav-link ${activeView === 'contact' ? 'active' : ''}`}
+              onClick={() => handleNavigate('contact')}
             >
-              Fashion
-            </button>
-            <button
-              className="nav-link"
-              onClick={() => handleNavigate('shop', 'Audio')}
-            >
-              Audio
+              [ 04 ] CONTACT
             </button>
           </nav>
         </div>
 
-        {/* Center: Search Bar */}
-        <div className="nav-search-bar">
-          <div className="search-input-wrapper">
-            <Search className="search-icon" size={18} />
-            <input
-              type="text"
-              placeholder="Search products, brands, categories..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-              onFocus={() => {
-                if (activeView !== 'shop') setActiveView('shop');
-              }}
-            />
-            {searchQuery && (
-              <button
-                className="clear-search-btn"
-                onClick={handleClearSearch}
-                aria-label="Clear search query"
-              >
-                <X size={16} />
-              </button>
-            )}
+        {/* Center/Right: Search Bar & Actions */}
+        <div className="nav-right">
+          {/* Search Trigger / Expandable Input */}
+          <div className={`nav-search-bar ${searchOpen ? 'expanded' : ''}`}>
+            <div className="search-input-wrapper">
+              <Search className="search-icon" size={16} />
+              <input
+                type="text"
+                placeholder="Search catalog by name or tag..."
+                value={searchQuery}
+                onChange={handleSearchChange}
+                onFocus={() => {
+                  if (activeView !== 'shop') setActiveView('shop');
+                }}
+              />
+              {searchQuery && (
+                <button
+                  className="clear-search-btn"
+                  onClick={() => setSearchQuery('')}
+                  aria-label="Clear query"
+                >
+                  <X size={14} />
+                </button>
+              )}
+            </div>
           </div>
-        </div>
 
-        {/* Right: Actions (Wishlist & Cart & Mobile Search) */}
-        <div className="nav-actions">
-          {/* Mobile search toggle */}
+          {/* Wishlist Pill */}
           <button
-            className="action-btn mobile-search-toggle"
-            onClick={() => setMobileSearchVisible(!mobileSearchVisible)}
-            aria-label="Toggle mobile search"
-          >
-            <Search size={20} />
-          </button>
-
-          {/* Wishlist Button */}
-          <button
-            className="action-btn wishlist-btn"
+            className="action-pill-btn wishlist-pill"
             onClick={() => setIsWishlistOpen(true)}
-            aria-label={`Wishlist with ${wishlist.length} items`}
-            title="View Wishlist"
+            aria-label={`Wishlist (${wishlist.length})`}
+            title="Saved Items"
           >
-            <Heart size={21} className={wishlist.length > 0 ? 'has-items' : ''} />
+            <Heart size={16} className={wishlist.length > 0 ? 'heart-active' : ''} />
+            <span className="pill-text">SAVED</span>
             {wishlist.length > 0 && (
-              <span className="badge-counter wishlist-badge">{wishlist.length}</span>
+              <span className="pill-counter">{wishlist.length}</span>
             )}
           </button>
 
-          {/* Cart Button */}
+          {/* Cart Pill */}
           <button
-            className="action-btn cart-btn"
+            className="action-pill-btn cart-pill"
             onClick={() => setIsCartOpen(true)}
-            aria-label={`Shopping cart with ${cartCount} items`}
-            title="View Cart"
+            aria-label={`Shopping Cart (${cartCount})`}
+            title="Shopping Cart"
           >
-            <ShoppingBag size={21} />
-            {cartCount > 0 && (
-              <span className="badge-counter cart-badge">{cartCount}</span>
-            )}
+            <ShoppingBag size={16} />
+            <span className="pill-text">BAG</span>
+            <span className="pill-counter accent-bg">{cartCount}</span>
           </button>
         </div>
       </div>
 
-      {/* Mobile Search Expandable Bar */}
-      {mobileSearchVisible && (
-        <div className="mobile-search-dropdown">
-          <div className="search-input-wrapper">
-            <Search className="search-icon" size={18} />
-            <input
-              type="text"
-              placeholder="Search store..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-              autoFocus
-            />
-            {searchQuery && (
-              <button className="clear-search-btn" onClick={handleClearSearch}>
-                <X size={16} />
-              </button>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
         <div className="mobile-menu-overlay" onClick={() => setMobileMenuOpen(false)}>
           <div className="mobile-menu-drawer" onClick={(e) => e.stopPropagation()}>
             <div className="mobile-menu-header">
               <div className="brand-logo">
-                <Sparkles className="logo-sparkle" size={18} />
-                <span className="logo-text">AuraStore</span>
+                <span className="brand-dot" />
+                <span className="logo-text">MORAE<sup>®</sup></span>
               </div>
               <button
                 className="close-drawer-btn"
@@ -221,27 +175,51 @@ export const Navbar = () => {
             </div>
 
             <div className="mobile-menu-body">
+              <div className="mobile-search-box">
+                <Search size={16} className="search-icon" />
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                />
+              </div>
+
               <nav className="mobile-nav-list">
                 <button
                   className={`mobile-nav-item ${activeView === 'home' ? 'active' : ''}`}
                   onClick={() => handleNavigate('home')}
                 >
-                  <Home size={18} />
-                  <span>Home</span>
+                  <span>[ 01 ] HOME</span>
+                  <ArrowUpRight size={16} />
                 </button>
                 <button
                   className={`mobile-nav-item ${activeView === 'shop' ? 'active' : ''}`}
                   onClick={() => handleNavigate('shop')}
                 >
-                  <Store size={18} />
-                  <span>Shop Catalog</span>
+                  <span>[ 02 ] CATALOG</span>
+                  <ArrowUpRight size={16} />
+                </button>
+                <button
+                  className={`mobile-nav-item ${activeView === 'about' ? 'active' : ''}`}
+                  onClick={() => handleNavigate('about')}
+                >
+                  <span>[ 03 ] PHILOSOPHY</span>
+                  <ArrowUpRight size={16} />
+                </button>
+                <button
+                  className={`mobile-nav-item ${activeView === 'contact' ? 'active' : ''}`}
+                  onClick={() => handleNavigate('contact')}
+                >
+                  <span>[ 04 ] CONTACT</span>
+                  <ArrowUpRight size={16} />
                 </button>
               </nav>
 
-              <div className="mobile-menu-section">
-                <h4>Popular Categories</h4>
-                <div className="mobile-category-tags">
-                  {['Electronics', 'Audio', 'Fashion', 'Home & Living', 'Footwear'].map((cat) => (
+              <div className="mobile-menu-categories">
+                <span className="mono-subhead">[ DEPARTMENTS ]</span>
+                <div className="mobile-cat-pills">
+                  {['Audio', 'Electronics', 'Fashion', 'Home & Living', 'Footwear'].map((cat) => (
                     <button
                       key={cat}
                       className="category-pill-btn"
@@ -253,9 +231,8 @@ export const Navbar = () => {
                 </div>
               </div>
 
-              <div className="mobile-menu-promo">
-                <p>🎁 <strong>Promo Code:</strong> <code>SAVE15</code></p>
-                <small>Apply at checkout for 15% discount!</small>
+              <div className="mobile-menu-footer">
+                <span className="mono-meta">PROMO VOUCHER: SAVE15 (15% OFF)</span>
               </div>
             </div>
           </div>
